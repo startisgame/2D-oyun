@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField] private UIController _uiController;
     [SerializeField] private Camera cameraMain;
     [SerializeField] private GameObject prefab;
     [SerializeField] private float cooldown;
@@ -20,10 +21,23 @@ public class PlayerScript : MonoBehaviour
             Vector2 mousePos = Mouse.current.position.ReadValue();
             Vector2 worldPos = cameraMain.ScreenToWorldPoint(mousePos);
             RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-            if(hit.transform == CompareTag("Player")){ return; }
-            var attack = Instantiate(prefab);
-            _currentTime = Time.time + cooldown;
-            attack.transform.position = worldPos;
+            if (hit.transform == CompareTag("Player")) { return; }
+            else
+            {
+                var attack = Instantiate(prefab);
+                _currentTime = Time.time + cooldown;
+                attack.transform.position = worldPos;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+            _uiController._healthSlider.value -= 25f;
+            Debug.Log(_uiController._healthSlider.value);
         }
     }
 

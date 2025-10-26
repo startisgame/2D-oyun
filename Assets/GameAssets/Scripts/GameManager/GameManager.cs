@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     private Label _label;
     private VisualElement _rootElement;
     public CameraManager _cameraManager;
-    public ProgressBar _healthBar;
     [SerializeField] private UIDocument _uiDoc;
     private void Awake()
     {
@@ -32,7 +31,6 @@ public class GameManager : MonoBehaviour
         _rootElement = _uiDoc.rootVisualElement;
         var visualElement = _rootElement.Q<VisualElement>("counter-screen");
         _label = visualElement.Q<Label>("counter-text");
-        _healthBar = _rootElement.Q<ProgressBar>("my-progress-bar");
         _currentState = GameStatesEnum.Play;
     }
     public void CounterUI()

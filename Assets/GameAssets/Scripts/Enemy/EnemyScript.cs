@@ -18,22 +18,10 @@ public class EnemyScript : MonoBehaviour
     }
     private void Update()
     {
-        if(GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
-        {
+        if(GameManager.Instance.GetCurrentState() != GameStatesEnum.Play){ return; }
             transform.position += (_player.position - transform.position) * _speed * Time.deltaTime;
             distance = _player.position - transform.position;
-        }
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            GameManager.Instance._healthBar.value -= 25f;
-            Destroy(this.gameObject);
-        }
-    }
-
     void LookAtTarget(Vector2 targetPos)
 {
     // Hedef yönü hesapla
