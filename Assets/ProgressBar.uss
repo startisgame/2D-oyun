@@ -1,0 +1,13 @@
+.unity-progress-bar__back {
+    background-color: black;
+}
+
+.unity-progress-bar__progress {
+    background-color: red;
+}
+
+.unity-text-element {
+}
+
+.unity-button {
+}
