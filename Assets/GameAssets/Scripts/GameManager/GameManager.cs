@@ -1,6 +1,8 @@
 using System;
+using System.Linq.Expressions;
 using JetBrains.Annotations;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -32,9 +34,27 @@ public class GameManager : MonoBehaviour
     {
         _rootElement = _uiDoc.rootVisualElement;
         var visualElement = _rootElement.Q<VisualElement>("counter-screen");
-        _label = visualElement.Q<Label>("counter-text");
+        _label = visualElement.Q<Label>("counter-text");    
+        _label.style.color = new Color(255, 255, 255, 0F);
         _pointLabel = _rootElement.Q<Label>("point-counter");
+        _pointLabel.style.color = new Color(255, 255, 255, 0F);
         _currentState = GameStatesEnum.Play;
+        InvokeRepeating(nameof(StarterScreen),1.5f,0f);
+    }
+    private void StarterScreen()
+    {
+        float value = Time.time * 0.01f;
+        if (value < 1.1f)
+        {
+            _pointLabel.style.color = new Color(255, 255, 255, value);
+            _label.style.color = new Color(255, 255, 255, value);
+        } else if(value > 1f)
+        {
+            Debug.Log("oldu");
+            _pointLabel.style.color = new Color(255, 255, 255, 1f);
+            _label.style.color = new Color(255, 255, 255, 1f);
+            CancelInvoke();
+        }
     }
     public void CounterUI()
     {

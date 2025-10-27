@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,12 +9,17 @@ public class CameraManager : MonoBehaviour
     private float shakeTime;
     private float totaleShakeTime;
     private float startIntensity;
-    private ProgressBar Bar;
 
     void Start()
     {
+        transform.rotation = Quaternion.Euler(new Vector3(-15f, 0f, 0f));
         cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
         GameManager.Instance._cameraManager = this;
+        Invoke(nameof(StartScreen), 1f);
+    }
+    private void StartScreen()
+    {
+        transform.DORotate(new Vector3(0f,0f,0f),2f).SetEase(Ease.OutQuart);
     }
 
     public void ShakeScreen(float intensity, float time)
