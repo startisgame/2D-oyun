@@ -16,8 +16,10 @@ public class GameManager : MonoBehaviour
     public Transform _player;
     public int _currentKill;
     private Label _label;
+    private Label _pointLabel;
     private VisualElement _rootElement;
     public CameraManager _cameraManager;
+    public int _pointCounter;
     [SerializeField] private UIDocument _uiDoc;
     private void Awake()
     {
@@ -31,12 +33,17 @@ public class GameManager : MonoBehaviour
         _rootElement = _uiDoc.rootVisualElement;
         var visualElement = _rootElement.Q<VisualElement>("counter-screen");
         _label = visualElement.Q<Label>("counter-text");
+        _pointLabel = _rootElement.Q<Label>("point-counter");
         _currentState = GameStatesEnum.Play;
     }
     public void CounterUI()
     {
         ++_currentKill;
         _label.text = "COUNTER : " + _currentKill;
+    }
+    public void PointUI()
+    {
+        _pointLabel.text = "POINTS : " + _pointCounter;
     }
     public GameStatesEnum GetCurrentState()
     {

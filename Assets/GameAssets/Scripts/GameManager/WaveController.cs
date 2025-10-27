@@ -4,6 +4,8 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _enemyPrefab_Medium;
+    [SerializeField] private GameObject _enemyPrefab_Hard;
     [SerializeField] private Transform rightTop;
     [SerializeField] private Transform leftTop;
     [SerializeField] private Transform rightBottom;
@@ -16,27 +18,41 @@ public class WaveController : MonoBehaviour
 
     private void WaveSpawner()
     {
+        var newEnemy = _enemyPrefab;
+        int randomEnemy = UnityEngine.Random.Range(0, 3);
+        switch (randomEnemy)
+        {
+            case 0:
+                newEnemy = _enemyPrefab;
+                break;
+            case 1:
+                newEnemy = _enemyPrefab_Medium;
+                break;
+            case 2:
+                newEnemy = _enemyPrefab_Hard;
+                break;
+        }
             int random = UnityEngine.Random.Range(1, 4);
             switch (random)
             {
                 case 0:
                     // TOP SPAWN
-                    var enemySpawn = Instantiate(_enemyPrefab);
+                    var enemySpawn = Instantiate(newEnemy);
                     enemySpawn.transform.position = new Vector2(UnityEngine.Random.Range(leftTop.position.x, 15), leftTop.position.y);
                     break;
                 case 1:
                     //RIGHT SPAWN
-                    var enemySpawn1 = Instantiate(_enemyPrefab);
+                    var enemySpawn1 = Instantiate(newEnemy);
                     enemySpawn1.transform.position = new Vector2(rightTop.position.x, UnityEngine.Random.Range(rightTop.position.y, -15));
                     break;
                 case 2:
                     //BOTTOM SPAWN
-                    var enemySpawn2 = Instantiate(_enemyPrefab);
+                    var enemySpawn2 = Instantiate(newEnemy);
                     enemySpawn2.transform.position = new Vector2(UnityEngine.Random.Range(rightBottom.position.x, -15), rightBottom.position.y);
                     break;
                 case 3:
                     //LEFT SPAWN
-                    var enemySpawn3 = Instantiate(_enemyPrefab);
+                    var enemySpawn3 = Instantiate(newEnemy);
                     enemySpawn3.transform.position = new Vector2(leftBottom.position.x, UnityEngine.Random.Range(leftBottom.position.y, 15));
                     break;
             }

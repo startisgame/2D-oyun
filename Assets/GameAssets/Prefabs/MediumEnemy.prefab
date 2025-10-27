@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7324146969396661782}
   - component: {fileID: 4604713715076547558}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: MediumEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c81ef6a38d987b4c96d27d415e7596e, type: 2}
+  - {fileID: 2100000, guid: 6ee78c31c6f793f41b15e65f61b75cf0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81485d5eb7e6a20468b0b4a3b6aaa1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScript
-  _scObject: {fileID: 11400000, guid: 74db181115695c94988b9c61dd09a1fe, type: 2}
+  _scObject: {fileID: 11400000, guid: 433de740f8920d54c97d45e3b9937d45, type: 2}
   _player: {fileID: 0}
   _speed: 0.5
 --- !u!61 &7324146969396661782
