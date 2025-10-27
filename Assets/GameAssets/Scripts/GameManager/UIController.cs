@@ -17,17 +17,26 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _AttackEffectsBTN;
     [Header("Sound Effects")]
     [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _sound1;
-    [SerializeField] private AudioClip _sound2;
-    [SerializeField] private AudioClip _sound3;
+    [SerializeField] private AudioClip _accept1;
+    [SerializeField] private AudioClip _accept2;
+    [SerializeField] private AudioClip _accept3;
+    [SerializeField] private AudioClip _accept4;
+    [SerializeField] private AudioClip _accept5;
+    [SerializeField] private AudioClip _accept6;
+    [Space]
+    [SerializeField] private AudioClip _reject1;
+    [SerializeField] private AudioClip _reject2;
+    [SerializeField] private AudioClip _reject3;
+    [SerializeField] private AudioClip _reject4;
     private AudioClip _currentClip;
-    [Header("AttackEffects Menu")]
-    private bool isSelected;
+
+    [Header("AttackEffects")]
     [SerializeField] private GameObject _buyEffect;
     [SerializeField] private RectTransform AttackEffectsMenu;
     private bool attackMenuOpen;
+    private bool isSelected;
     private int id;
-    [SerializeField] private Material killMenuOffset;
+    [SerializeField] private Material menuOffset;
     [SerializeField] private Button _AttackBack_BTN;
     [SerializeField] private Button AttackEffect_1_BTN;
     [SerializeField] private Button AttackEffect_2_BTN;
@@ -35,7 +44,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button AttackEffect_4_BTN;
     [SerializeField] private Button AttackEffect_5_BTN;
     [Header("KillEffects Menu")]
-    [SerializeField] private Button _KillBack_BTN;
+    private bool killMenuOpen;
+    [SerializeField] private RectTransform _killEffectsMenu;
+    [SerializeField] private Button _killEffects_BTN;
+    [SerializeField] private Button _killBack_BTN;
     [SerializeField] private Button killEffect_1_BTN;
     [SerializeField] private Button killEffect_2_BTN;
     [SerializeField] private Button killEffect_3_BTN;
@@ -46,8 +58,10 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
-        _AttackEffectsBTN.onClick.AddListener(OpenKillEffectsMenu);
-        _AttackBack_BTN.onClick.AddListener(CloseKillEffectsMenu);
+        _killEffects_BTN.onClick.AddListener(OpenKillEffectsMenu);
+        _killBack_BTN.onClick.AddListener(CloseKillEffectsMenu);
+        _AttackEffectsBTN.onClick.AddListener(OpenAttackEffectsMenu);
+        _AttackBack_BTN.onClick.AddListener(CloseAttackEffectsMenu);
         _openMenu.onClick.AddListener(OpenMainMenu);
         toggle = 1;
         id = Shader.PropertyToID("_MainTex");
@@ -62,15 +76,15 @@ public class UIController : MonoBehaviour
         killEffect_3_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_3_BTN); });
         killEffect_4_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_4_BTN); });
         killEffect_5_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_5_BTN); });
-        Invoke(nameof(OpenMainMenu),.5f);
+        Invoke(nameof(OpenMainMenu),.2f);
     }
 
     private void Update()
     {
-        if (attackMenuOpen)
+        if (attackMenuOpen || killMenuOpen)
         {
             float yOffset = Time.time * -0.7f;
-            killMenuOffset.SetTextureOffset(id,new Vector2(0f,yOffset));
+            menuOffset.SetTextureOffset(id,new Vector2(0f,yOffset));
         }
     }
 
@@ -80,22 +94,31 @@ public class UIController : MonoBehaviour
         {
             isSelected = true;
             Invoke(nameof(IsSelectedReset),.5f);
-            int _random = UnityEngine.Random.Range(1, 3);
+            int _random = UnityEngine.Random.Range(1, 7);
             switch (_random)
             {
                 case 1:
-                    _currentClip = _sound1;
+                    _currentClip = _accept1;
                     break;
                 case 2:
-                    _currentClip = _sound2;
+                    _currentClip = _accept2;
                     break;
                 case 3:
-                    _currentClip = _sound3;
+                    _currentClip = _accept3;
+                    break;
+                case 4:
+                    _currentClip = _accept4;
+                    break;
+                case 5:
+                    _currentClip = _accept5;
+                    break;
+                case 6:
+                    _currentClip = _accept6;
                     break;
             }
             var _effect = Instantiate(_buyEffect);
-            Destroy(_effect.gameObject, 1f);
             _source.PlayOneShot(_currentClip);
+            Destroy(_effect.gameObject, 1f);
             if (clickedBTN == AttackEffect_1_BTN)
             {
                 _effect.transform.position = AttackEffect_1_BTN.transform.position;
@@ -135,20 +158,29 @@ public class UIController : MonoBehaviour
         {
             isSelected = true;
             Invoke(nameof(IsSelectedReset), .5f);
-            _source.PlayOneShot(_currentClip);
-            int _random = UnityEngine.Random.Range(1, 3);
+            int _random = UnityEngine.Random.Range(1, 7);
             switch (_random)
             {
                 case 1:
-                    _currentClip = _sound1;
+                    _currentClip = _accept1;
                     break;
                 case 2:
-                    _currentClip = _sound2;
+                    _currentClip = _accept2;
                     break;
                 case 3:
-                    _currentClip = _sound3;
+                    _currentClip = _accept3;
+                    break;
+                case 4:
+                    _currentClip = _accept4;
+                    break;
+                case 5:
+                    _currentClip = _accept5;
+                    break;
+                case 6:
+                    _currentClip = _accept6;
                     break;
             }
+            _source.PlayOneShot(_currentClip);
             var _effect = Instantiate(_buyEffect);
             Destroy(_effect.gameObject, 1f);
             if (clickedBTN == killEffect_1_BTN)
@@ -206,30 +238,39 @@ public class UIController : MonoBehaviour
     }
     private void OpenKillEffectsMenu()
     {
-        attackMenuOpen = true;
-        _mainMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
-        {
-            _openMenu.interactable = false;
-        });
+        killMenuOpen = true;
+        _killBack_BTN.interactable = false;
         _openMenu.interactable = false;
-        GameManager.Instance.ChangeState(GameStatesEnum.KillEffects);
-        AttackEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart);
+        _mainMenu.DOAnchorPosY(-1200f, 1).SetEase(Ease.OutQuart);
+        _killEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
+        {
+            _killBack_BTN.interactable = true;
+        });
     }
     private void CloseKillEffectsMenu()
+    {
+        killMenuOpen = false;
+        _killBack_BTN.interactable = false;
+        _mainMenu.DOAnchorPosY(0f, 1).SetEase(Ease.OutQuart).OnComplete(() =>
+        {
+            _openMenu.interactable = true;
+        });
+        _killEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+    }
+    private void OpenAttackEffectsMenu()
+    {
+        attackMenuOpen = true;
+        _openMenu.interactable = false;
+        _mainMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+        AttackEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart);
+    }
+    private void CloseAttackEffectsMenu()
     {
         attackMenuOpen = false;
         _mainMenu.DOAnchorPosY(0f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
             _openMenu.interactable = true;
         });
-        GameManager.Instance.ChangeState(GameStatesEnum.Pause);
-        AttackEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
-        {
-            _openMenu.interactable = true;
-        });
-    }
-    private void OnDisable()
-    {
-        killMenuOffset.SetTextureOffset(id, new Vector2(0f,0f));
+        AttackEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
     }
 }
