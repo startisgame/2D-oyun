@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    public event Action OnTakeDamage;
     [SerializeField] private InputActionAsset _asset;
     [SerializeField] private InputAction _isTouched;
     [SerializeField] private InputAction _touchPos;
@@ -11,8 +13,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private float cooldown;
     [SerializeField] private float _currentTime;
-    private Vector2 _pos;
-    private bool canAttack;
     private void OnEnable()
     {
         cameraMain = Camera.main;
@@ -56,6 +56,10 @@ public class PlayerScript : MonoBehaviour
         {
             Destroy(collision.gameObject);
             _uiController._healthSlider.value -= 25f;
+            if(_uiController._healthSlider.value <= 0)
+            {
+                OnTakeDamage?.Invoke();
+            }
             Debug.Log(_uiController._healthSlider.value);
         }
     }

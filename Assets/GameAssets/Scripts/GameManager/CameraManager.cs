@@ -1,8 +1,6 @@
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;

@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public int _currentKill;
     public CameraManager _cameraManager;
     public int _pointCounter;
-    public ProgressBar bar;
+    public Slider bar;
     public TextMeshProUGUI _point;
     public TextMeshProUGUI _kill;
     private void Awake()
