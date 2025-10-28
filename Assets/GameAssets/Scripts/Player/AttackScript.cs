@@ -84,7 +84,7 @@ public class AttackScript : MonoBehaviour
             deathEffectEnemy.transform.position = other.transform.position;
             Destroy(deathEffectEnemy.gameObject, 1f);
             Destroy(other.gameObject);
-            GameManager.Instance._cameraManager.ShakeScreen(5f,1f);
+            GameManager.Instance._cameraManager.ShakeScreen(5f,.5f);
         }
     }
     private void TurnOFFTrigger()

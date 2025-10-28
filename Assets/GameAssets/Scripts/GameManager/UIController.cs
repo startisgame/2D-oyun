@@ -12,11 +12,15 @@ public class UIController : MonoBehaviour
 {
     private int toggle;
     private bool isCanBuyThis;
+    [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
     [SerializeField] private Button _mainMenuBTN;
-    [SerializeField] private Button _AttackEffectsBTN;
+    [SerializeField] private AudioClip _buttonSound1;
+    [SerializeField] private AudioClip _buttonSound2;
+    [SerializeField] private AudioClip _buttonSound3;
+    [SerializeField] private AudioClip _buttonSound4;
     [Header("Sound Effects")]
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _accept1;
@@ -31,8 +35,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private AudioClip _reject3;
     [SerializeField] private AudioClip _reject4;
     private AudioClip _currentClip;
-
     [Header("AttackEffects")]
+    [SerializeField] private Button _AttackEffectsBTN;
     [SerializeField] private GameObject _buyEffect;
     [SerializeField] private RectTransform AttackEffectsMenu;
     private bool attackMenuOpen;
@@ -60,6 +64,7 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
+        Invoke(nameof(StartSound), 0.2f);
         _killEffects_BTN.onClick.AddListener(OpenKillEffectsMenu);
         _killBack_BTN.onClick.AddListener(CloseKillEffectsMenu);
         _AttackEffectsBTN.onClick.AddListener(OpenAttackEffectsMenu);
@@ -78,6 +83,12 @@ public class UIController : MonoBehaviour
         killEffect_3_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_3_BTN); });
         killEffect_4_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_4_BTN); });
         killEffect_5_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_5_BTN); });
+
+        _AttackEffectsBTN.onClick.AddListener(ButtonSoundEffects);
+        _killEffects_BTN.onClick.AddListener(ButtonSoundEffects);
+        _killBack_BTN.onClick.AddListener(ButtonSoundEffects);
+        _AttackBack_BTN.onClick.AddListener(ButtonSoundEffects);
+        _openMenu.onClick.AddListener(ButtonSoundEffects);
         Invoke(nameof(OpenMainMenu), .1f);
     }
 
@@ -88,6 +99,11 @@ public class UIController : MonoBehaviour
             float yOffset = Time.time * -0.7f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
         }
+    }
+
+    private void StartSound()
+    {
+        _source.PlayOneShot(_startSound);
     }
 
     private void AttackEffectChooser(Button clickedBTN)
@@ -392,5 +408,25 @@ public class UIController : MonoBehaviour
             _openMenu.interactable = true;
         });
         AttackEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+    }
+    private void ButtonSoundEffects()
+    {
+        int _random = UnityEngine.Random.Range(1, 5);
+        switch (_random)
+        {
+            case 1:
+                _currentClip = _buttonSound1;
+                break;
+            case 2:
+                _currentClip = _buttonSound2;
+                break;
+            case 3:
+                _currentClip = _buttonSound3;
+                break;
+            case 4:
+                _currentClip = _buttonSound4;
+                break;
+        }
+        _source.PlayOneShot(_currentClip);
     }
 }

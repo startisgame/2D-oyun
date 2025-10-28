@@ -3,23 +3,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField] private InputActionAsset _asset;
+    [SerializeField] private InputAction _isTouched;
+    [SerializeField] private InputAction _touchPos;
     [SerializeField] private UIController _uiController;
     [SerializeField] private Camera cameraMain;
     [SerializeField] private GameObject prefab;
     [SerializeField] private float cooldown;
     [SerializeField] private float _currentTime;
+    private Vector2 _pos;
     private bool canAttack;
-    private void Start()
+    private void OnEnable()
     {
         cameraMain = Camera.main;
+        _touchPos = _asset.FindActionMap("Player").FindAction("Touch");
+        _isTouched = _asset.FindActionMap("Player").FindAction("Touch");
+        _touchPos.Enable();
+        _isTouched.Enable();
+        _isTouched.performed += SpawnAttacK;
+    }
+    private void OnDisable()
+    {
+        _isTouched.performed -= SpawnAttacK;
+        _touchPos.Disable();
+        _isTouched.Disable();
     }
 
     private void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && _currentTime < Time.time && GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
+
+    }
+
+    private void SpawnAttacK(InputAction.CallbackContext context)
+    {
+        if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play && _currentTime < Time.time)
         {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector2 worldPos = cameraMain.ScreenToWorldPoint(mousePos);
+            Vector2 touchPos = _touchPos.ReadValue<Vector2>();
+            Vector2 worldPos = cameraMain.ScreenToWorldPoint(touchPos);
             RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
             if (hit.transform == CompareTag("Player")) { return; }
             else
@@ -28,8 +48,7 @@ public class PlayerScript : MonoBehaviour
                 _currentTime = Time.time + cooldown;
                 attack.transform.position = worldPos;
             }
-        }
-    }
+        }}
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,3 +61,4 @@ public class PlayerScript : MonoBehaviour
     }
 
 }
+//Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && 

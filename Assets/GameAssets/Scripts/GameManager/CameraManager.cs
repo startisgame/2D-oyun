@@ -12,14 +12,14 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        transform.rotation = Quaternion.Euler(new Vector3(-15f, 0f, 0f));
+        transform.rotation = Quaternion.Euler(new Vector3(-20f, 0f, 0f));
         cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
         GameManager.Instance._cameraManager = this;
         Invoke(nameof(StartScreen), 1f);
     }
     private void StartScreen()
     {
-        transform.DORotate(new Vector3(0f,0f,0f),2f).SetEase(Ease.OutQuart);
+        transform.DORotate(new Vector3(0f,0f,0f),3f).SetEase(Ease.OutQuart);
     }
 
     public void ShakeScreen(float intensity, float time)
