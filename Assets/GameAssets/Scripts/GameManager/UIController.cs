@@ -15,10 +15,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
     [Header("Canvas 2")]
-    [SerializeField] private RectTransform _screen;
+    public RectTransform _screen;
+    [Header("Settings Menu")]
+    [SerializeField] private Button _settings_BTN;
+    [SerializeField] private Button _settingBack_BTN;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
-    [SerializeField] private Button _mainMenuBTN;
     [SerializeField] private AudioClip _buttonSound1;
     [SerializeField] private AudioClip _buttonSound2;
     [SerializeField] private AudioClip _buttonSound3;
@@ -66,7 +68,10 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
+        GameManager.Instance.bar = _healthSlider;
+        GameManager.Instance._UIController = this;
         Invoke(nameof(StartSound), 0.2f);
+        GameManager.Instance._startSoundd = _startSound;
         _killEffects_BTN.onClick.AddListener(OpenKillEffectsMenu);
         _killBack_BTN.onClick.AddListener(CloseKillEffectsMenu);
         _AttackEffectsBTN.onClick.AddListener(OpenAttackEffectsMenu);
@@ -104,7 +109,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void Screen2Scale()
+    public void Screen2Scale()
     {
         _screen.DOScale(1f,1.5f).SetEase(Ease.OutQuart);
     }
@@ -356,7 +361,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void OpenMainMenu()
+    public void OpenMainMenu()
     {
         switch (toggle)
         {

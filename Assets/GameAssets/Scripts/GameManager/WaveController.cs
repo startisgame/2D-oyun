@@ -1,8 +1,10 @@
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class WaveController : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> _enemysList;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyPrefab_Medium;
     [SerializeField] private GameObject _enemyPrefab_Hard;
@@ -33,33 +35,38 @@ public class WaveController : MonoBehaviour
                 break;
         }
             int random = UnityEngine.Random.Range(1, 4);
-            switch (random)
-            {
-                case 0:
-                    // TOP SPAWN
-                    var enemySpawn = Instantiate(newEnemy);
-                    enemySpawn.transform.position = new Vector2(UnityEngine.Random.Range(leftTop.position.x, 15), leftTop.position.y);
-                    break;
-                case 1:
-                    //RIGHT SPAWN
-                    var enemySpawn1 = Instantiate(newEnemy);
-                    enemySpawn1.transform.position = new Vector2(rightTop.position.x, UnityEngine.Random.Range(rightTop.position.y, -15));
-                    break;
-                case 2:
-                    //BOTTOM SPAWN
-                    var enemySpawn2 = Instantiate(newEnemy);
-                    enemySpawn2.transform.position = new Vector2(UnityEngine.Random.Range(rightBottom.position.x, -15), rightBottom.position.y);
-                    break;
-                case 3:
-                    //LEFT SPAWN
-                    var enemySpawn3 = Instantiate(newEnemy);
-                    enemySpawn3.transform.position = new Vector2(leftBottom.position.x, UnityEngine.Random.Range(leftBottom.position.y, 15));
-                    break;
-            }
+        switch (random)
+        {
+            case 0:
+                // TOP SPAWN
+                var enemySpawn = Instantiate(newEnemy);
+                _enemysList.Add(enemySpawn);
+                enemySpawn.transform.position = new Vector2(UnityEngine.Random.Range(leftTop.position.x, 15), leftTop.position.y);
+                break;
+            case 1:
+                //RIGHT SPAWN
+                var enemySpawn1 = Instantiate(newEnemy);
+                _enemysList.Add(enemySpawn1);
+                enemySpawn1.transform.position = new Vector2(rightTop.position.x, UnityEngine.Random.Range(rightTop.position.y, -15));
+                break;
+            case 2:
+                //BOTTOM SPAWN
+                var enemySpawn2 = Instantiate(newEnemy);
+                _enemysList.Add(enemySpawn2);
+                enemySpawn2.transform.position = new Vector2(UnityEngine.Random.Range(rightBottom.position.x, -15), rightBottom.position.y);
+                break;
+            case 3:
+                //LEFT SPAWN
+                var enemySpawn3 = Instantiate(newEnemy);
+                _enemysList.Add(enemySpawn3);
+                enemySpawn3.transform.position = new Vector2(leftBottom.position.x, UnityEngine.Random.Range(leftBottom.position.y, 15));
+                break;
+        }
+        GameManager.Instance._EnemysList = _enemysList;
     }
     private void ControlState()
     {
-        if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Pause || GameManager.Instance.GetCurrentState() == GameStatesEnum.MainMenu || GameManager.Instance.GetCurrentState() == GameStatesEnum.GameOver || GameManager.Instance.GetCurrentState() == GameStatesEnum.KillEffects)
+        if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Pause || GameManager.Instance.GetCurrentState() == GameStatesEnum.MainMenu || GameManager.Instance.GetCurrentState() == GameStatesEnum.GameOver || GameManager.Instance.GetCurrentState() == GameStatesEnum.KillEffects || GameManager.Instance.GetCurrentState() == GameStatesEnum.Settings)
         {
             CancelInvoke(nameof(WaveSpawner));
         }

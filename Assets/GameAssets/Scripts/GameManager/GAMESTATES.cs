@@ -4,5 +4,6 @@ public enum GameStatesEnum
     Pause,
     KillEffects,
     MainMenu,
+    Settings,
     GameOver,
 }

@@ -4,15 +4,23 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
+    private PlayerDeathCamera _deathCam;
     private float shakeTime;
     private float totaleShakeTime;
     private float startIntensity;
 
     void Start()
     {
-        transform.rotation = Quaternion.Euler(new Vector3(-20f, 0f, 0f));
+        transform.rotation = Quaternion.Euler(new Vector3(-35f, 0f, 0f));
         cinemachineBasicMultiChannelPerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
         GameManager.Instance._cameraManager = this;
+        Invoke(nameof(StartScreen), 1f);
+        _deathCam = GetComponent<PlayerDeathCamera>();
+        _deathCam.OnDeathCam += CamTopToDown;
+    }
+    private void CamTopToDown()
+    {
+        transform.rotation = Quaternion.Euler(new Vector3(-35f, 0f, 0f));
         Invoke(nameof(StartScreen), 1f);
     }
     private void StartScreen()

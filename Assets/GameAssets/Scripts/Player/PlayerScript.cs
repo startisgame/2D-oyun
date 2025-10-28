@@ -6,8 +6,8 @@ public class PlayerScript : MonoBehaviour
 {
     public event Action OnTakeDamage;
     [SerializeField] private InputActionAsset _asset;
-    [SerializeField] private InputAction _isTouched;
-    [SerializeField] private InputAction _touchPos;
+    private InputAction _isTouched;
+    private InputAction _touchPos;
     [SerializeField] private UIController _uiController;
     [SerializeField] private Camera cameraMain;
     [SerializeField] private GameObject prefab;

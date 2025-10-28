@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using TMPro;
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
 {
     public event Action StateChanged;
     public static GameManager Instance { get; private set; }
+    public List<GameObject> _EnemysList;
+    public UIController _UIController;
+    public AudioClip _startSoundd;
     private GameStatesEnum _currentState;
     public Camera _mainCamera;
     public Volume _camVolume;
