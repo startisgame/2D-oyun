@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour
     private bool isCanBuyThis;
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
+    [Header("Canvas 2")]
+    [SerializeField] private RectTransform _screen;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
     [SerializeField] private Button _mainMenuBTN;
@@ -90,6 +92,7 @@ public class UIController : MonoBehaviour
         _AttackBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _openMenu.onClick.AddListener(ButtonSoundEffects);
         Invoke(nameof(OpenMainMenu), .1f);
+        Invoke(nameof(Screen2Scale), 2.4f);
     }
 
     private void Update()
@@ -99,6 +102,11 @@ public class UIController : MonoBehaviour
             float yOffset = Time.time * -0.7f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
         }
+    }
+
+    private void Screen2Scale()
+    {
+        _screen.DOScale(1f,1.5f).SetEase(Ease.OutQuart);
     }
 
     private void StartSound()
@@ -355,7 +363,7 @@ public class UIController : MonoBehaviour
             case 0:
                 _openMenu.interactable = false;
                 ++toggle;
-                _mainMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
+                _mainMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
                 {
                     GameManager.Instance.ChangeState(GameStatesEnum.Play);
                     _openMenu.interactable = true;
@@ -377,7 +385,7 @@ public class UIController : MonoBehaviour
         killMenuOpen = true;
         _killBack_BTN.interactable = false;
         _openMenu.interactable = false;
-        _mainMenu.DOAnchorPosY(-1200f, 1).SetEase(Ease.OutQuart);
+        _mainMenu.DOAnchorPosY(-1700f, 1).SetEase(Ease.OutQuart);
         _killEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
             _killBack_BTN.interactable = true;
@@ -391,13 +399,13 @@ public class UIController : MonoBehaviour
         {
             _openMenu.interactable = true;
         });
-        _killEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+        _killEffectsMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
     }
     private void OpenAttackEffectsMenu()
     {
         attackMenuOpen = true;
         _openMenu.interactable = false;
-        _mainMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+        _mainMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
         AttackEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart);
     }
     private void CloseAttackEffectsMenu()
@@ -407,7 +415,7 @@ public class UIController : MonoBehaviour
         {
             _openMenu.interactable = true;
         });
-        AttackEffectsMenu.DOAnchorPosY(-1200f, 1f).SetEase(Ease.OutQuart);
+        AttackEffectsMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
     }
     private void ButtonSoundEffects()
     {
