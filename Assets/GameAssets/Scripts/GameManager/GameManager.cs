@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public UIController _UIController;
     public AudioClip _startSoundd;
     private GameStatesEnum _currentState;
+    public Transform _cineCam;
     public Camera _mainCamera;
     public Volume _camVolume;
     public AttackScript _attackScript;

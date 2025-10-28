@@ -7,11 +7,13 @@ using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIController : MonoBehaviour
 {
     private int toggle;
     private bool isCanBuyThis;
+    private List<Button> _allButtonsList;
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
     [Header("Canvas 2")]
@@ -19,6 +21,7 @@ public class UIController : MonoBehaviour
     [Header("Settings Menu")]
     [SerializeField] private Button _settings_BTN;
     [SerializeField] private Button _settingBack_BTN;
+    private bool isSettingsOpen;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
     [SerializeField] private AudioClip _buttonSound1;
@@ -68,6 +71,7 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
+        _allButtonsList = new List<Button>();
         GameManager.Instance.bar = _healthSlider;
         GameManager.Instance._UIController = this;
         Invoke(nameof(StartSound), 0.2f);
@@ -79,18 +83,30 @@ public class UIController : MonoBehaviour
         _openMenu.onClick.AddListener(OpenMainMenu);
         toggle = 1;
         id = Shader.PropertyToID("_MainTex");
+        _settingBack_BTN.onClick.AddListener(SettingsMenuClose);
+        _settings_BTN.onClick.AddListener(SettingsMenuOpen);
         AttackEffect_1_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_1_BTN); });
         AttackEffect_2_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_2_BTN); });
         AttackEffect_3_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_3_BTN); });
         AttackEffect_4_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_4_BTN); });
         AttackEffect_5_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_5_BTN); });
         
+        _allButtonsList.Add(_settingBack_BTN);
+        _allButtonsList.Add(_settings_BTN);
+        _allButtonsList.Add(_AttackEffectsBTN);
+        _allButtonsList.Add(_killEffects_BTN);
+        _allButtonsList.Add(_killBack_BTN);
+        _allButtonsList.Add(_AttackBack_BTN);
+        _allButtonsList.Add(_openMenu);
+
         killEffect_1_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_1_BTN); });
         killEffect_2_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_2_BTN); });
         killEffect_3_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_3_BTN); });
         killEffect_4_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_4_BTN); });
         killEffect_5_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_5_BTN); });
 
+        _settingBack_BTN.onClick.AddListener(ButtonSoundEffects);
+        _settings_BTN.onClick.AddListener(ButtonSoundEffects);
         _AttackEffectsBTN.onClick.AddListener(ButtonSoundEffects);
         _killEffects_BTN.onClick.AddListener(ButtonSoundEffects);
         _killBack_BTN.onClick.AddListener(ButtonSoundEffects);
@@ -117,6 +133,31 @@ public class UIController : MonoBehaviour
     private void StartSound()
     {
         _source.PlayOneShot(_startSound);
+    }
+
+    private void SettingsMenuOpen()
+    {
+            for (int i = 0; i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = false;
+            }
+            GameManager.Instance._cineCam.DOMoveY(90f, 2.5f).SetEase(Ease.InOutExpo).OnComplete(() =>
+            {
+                _settingBack_BTN.interactable = true;
+            });
+            _screen.DOScale(3f, 3.5f).SetEase(Ease.OutQuart);
+    }
+    private void SettingsMenuClose()
+    {
+        _settingBack_BTN.interactable = false;
+        GameManager.Instance._cineCam.DOMoveY(0f, 2.5f).SetEase(Ease.InOutExpo).OnComplete(() =>
+        {
+            for (int i = 0; i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = true;
+            }
+        });
+        _screen.DOScale(1f, 3.5f).SetEase(Ease.OutQuart);
     }
 
     private void AttackEffectChooser(Button clickedBTN)
@@ -366,21 +407,33 @@ public class UIController : MonoBehaviour
         switch (toggle)
         {
             case 0:
-                _openMenu.interactable = false;
+                for(int i = 0; i < _allButtonsList.Count; i++)
+                {
+                    _allButtonsList[i].interactable = false;
+                }
                 ++toggle;
                 _mainMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
                 {
                     GameManager.Instance.ChangeState(GameStatesEnum.Play);
-                    _openMenu.interactable = true;
+                    for(int i = 0; i < _allButtonsList.Count; i++)
+                    {
+                        _allButtonsList[i].interactable = true;
+                    }
                 });
                 break;
             case 1:
-                _openMenu.interactable = false;
+                for(int i = 0; i < _allButtonsList.Count; i++)
+                {
+                    _allButtonsList[i].interactable = false;
+                }
                 GameManager.Instance.ChangeState(GameStatesEnum.Pause);
                 --toggle;
                 _mainMenu.DOAnchorPosY(0f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
                 {
-                    _openMenu.interactable = true;
+                    for(int i = 0; i < _allButtonsList.Count; i++)
+                    {
+                        _allButtonsList[i].interactable = true;
+                    }
                 });
                 break;
         }
@@ -388,8 +441,10 @@ public class UIController : MonoBehaviour
     private void OpenKillEffectsMenu()
     {
         killMenuOpen = true;
-        _killBack_BTN.interactable = false;
-        _openMenu.interactable = false;
+        for(int i = 0;i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
         _mainMenu.DOAnchorPosY(-1700f, 1).SetEase(Ease.OutQuart);
         _killEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
@@ -400,25 +455,38 @@ public class UIController : MonoBehaviour
     {
         killMenuOpen = false;
         _killBack_BTN.interactable = false;
-        _mainMenu.DOAnchorPosY(0f, 1).SetEase(Ease.OutQuart).OnComplete(() =>
+        _mainMenu.DOAnchorPosY(0f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
-            _openMenu.interactable = true;
+            for(int i = 0;i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = true;
+            }
         });
         _killEffectsMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
     }
     private void OpenAttackEffectsMenu()
     {
         attackMenuOpen = true;
-        _openMenu.interactable = false;
+        for(int i = 0;i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
         _mainMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
-        AttackEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart);
+        AttackEffectsMenu.DOAnchorPosY(-50f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
+        {
+            _AttackBack_BTN.interactable = true;
+        });
     }
     private void CloseAttackEffectsMenu()
     {
         attackMenuOpen = false;
+        _AttackBack_BTN.interactable = false;
         _mainMenu.DOAnchorPosY(0f, 1f).SetEase(Ease.OutQuart).OnComplete(() =>
         {
-            _openMenu.interactable = true;
+            for(int i = 0;i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = true;
+            }
         });
         AttackEffectsMenu.DOAnchorPosY(-1700f, 1f).SetEase(Ease.OutQuart);
     }
