@@ -21,6 +21,7 @@ public class PlayerDeathCamera : MonoBehaviour
     private float shakeTime;
     private bool firstDeath;
     private bool secondDeath;
+    private float targetValue;
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -28,9 +29,14 @@ public class PlayerDeathCamera : MonoBehaviour
         _cinemachineCam = GetComponent<CinemachineCamera>();
         _gmInstance = GameManager.Instance;
         _gmInstance._player.GetComponent<PlayerScript>().OnTakeDamage += OnDeath;
+        targetValue = 5f;
     }
     private void OnDeath()
     {
+        for(int i = 0; i < _gmInstance._UIController._allButtonsList.Count; i++)
+        {
+            _gmInstance._UIController._allButtonsList[i].interactable = false;
+        }
         shakeTime = 5;
         _camRotSpeed = 0f;
         _camSpeed = 0f;
@@ -54,19 +60,37 @@ public class PlayerDeathCamera : MonoBehaviour
         }
         if (secondDeath)
         {
-            _camSpeed += Time.deltaTime;
-            _camRotSpeed += Time.deltaTime;
-            _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, -0.04f, _camSpeed);
+            Debug.Log(_camSpeed);
+            _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, 0.01f, _camSpeed);
             _cinemachineCam.Lens.Dutch = Mathf.Lerp(0f, 270f, _camRotSpeed);
             perlin = _cinemachineCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
-            shakeTime -= Time.deltaTime * 5;
-            perlin.AmplitudeGain = Mathf.Lerp(5, 0f, 1 - shakeTime * 4);
-            perlin.FrequencyGain = Mathf.Lerp(5, 0f, 1 - shakeTime * 4);
+            perlin.AmplitudeGain = Mathf.Lerp(0, 5f, shakeTime);
+            perlin.FrequencyGain = Mathf.Lerp(0, 3f, shakeTime);
         }
     }
     private void SecondReset()
     {
+        DOTween.To(
+            () => _camSpeed,
+            x => _camSpeed = x,
+            targetValue,
+            2.5f
+        ).SetEase(Ease.InQuart);
+
+        DOTween.To(
+            () => _camRotSpeed,
+            x => _camRotSpeed = x,
+            targetValue,
+            2.5f
+        ).SetEase(Ease.InQuart);
+        DOTween.To(
+            () => shakeTime,
+            x => shakeTime = x,
+            .5f,
+            3f
+        ).SetEase(Ease.InSine);
         secondDeath = true;
+        _gmInstance._UIController._screen.DOScale(3f, 3f).SetEase(Ease.InSine);
     }
     private void TriggerCam()
     {

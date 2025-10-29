@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour
 {
     private int toggle;
     private bool isCanBuyThis;
-    private List<Button> _allButtonsList;
+    public List<Button> _allButtonsList;
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
     [Header("Canvas 2")]
