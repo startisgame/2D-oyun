@@ -2405,7 +2405,7 @@ Transform:
   m_GameObject: {fileID: 667632104}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.098792635, w: 0.99510807}
-  m_LocalPosition: {x: -4.7, y: -2.7, z: 60.1}
+  m_LocalPosition: {x: -4.7, y: -2.7, z: 33.299995}
   m_LocalScale: {x: 1.1700083, y: 1.1700083, z: 1.1700083}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3889,7 +3889,7 @@ Transform:
   m_GameObject: {fileID: 937937826}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 59.1}
+  m_LocalPosition: {x: 0, y: 0, z: 32.299995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4471,11 +4471,12 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005676494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 38.4}
+  m_LocalPosition: {x: 0, y: 0, z: 27.72}
   m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 314080309}
+  - {fileID: 1261303784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5221,6 +5222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathCamera
   _deathSound: {fileID: 8300000, guid: 8ef781597ff22ab48ae4044e3c4334da, type: 3}
+  _deathSound_2: {fileID: 8300000, guid: fb1fb8ebaa866fb489110e28599e922c, type: 3}
+  _deathSound_3: {fileID: 8300000, guid: 14bc56af4e22bf348a1d383edd6ece85, type: 3}
   _audioSource: {fileID: 0}
   _whiteScreen: {fileID: 1261303784}
   _cinemachineCam: {fileID: 0}
@@ -6003,15 +6006,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261303783}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6313}
+  m_LocalPosition: {x: 0, y: 0, z: -848}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2010750332}
+  m_Father: {fileID: 1005676498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011302807, y: 0}
+  m_AnchoredPosition: {x: 0.001220703, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261303785
@@ -7360,7 +7363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 96d60590d2a3f0143a9a84d4568d9de8, type: 2}
-  m_Color: {r: 1, g: 0.32796416, b: 0, a: 0.36078432}
+  m_Color: {r: 1, g: 0.32796416, b: 0, a: 0.21568628}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8021,7 +8024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 96d60590d2a3f0143a9a84d4568d9de8, type: 2}
-  m_Color: {r: 1, g: 0.32796416, b: 0, a: 0.36078432}
+  m_Color: {r: 1, g: 0.32796416, b: 0, a: 0.21568628}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8673,7 +8676,6 @@ RectTransform:
   - {fileID: 708871184}
   - {fileID: 1982798365}
   - {fileID: 872680599}
-  - {fileID: 1261303784}
   m_Father: {fileID: 1390400538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

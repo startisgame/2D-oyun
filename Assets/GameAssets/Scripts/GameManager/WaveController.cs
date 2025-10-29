@@ -41,25 +41,25 @@ public class WaveController : MonoBehaviour
                 // TOP SPAWN
                 var enemySpawn = Instantiate(newEnemy);
                 _enemysList.Add(enemySpawn);
-                enemySpawn.transform.position = new Vector2(UnityEngine.Random.Range(leftTop.position.x, 15), leftTop.position.y);
+                enemySpawn.transform.position = new Vector3(UnityEngine.Random.Range(leftTop.position.x, 15), leftTop.position.y,GameManager.Instance._player.position.z + -2);
                 break;
             case 1:
                 //RIGHT SPAWN
                 var enemySpawn1 = Instantiate(newEnemy);
                 _enemysList.Add(enemySpawn1);
-                enemySpawn1.transform.position = new Vector2(rightTop.position.x, UnityEngine.Random.Range(rightTop.position.y, -15));
+                enemySpawn1.transform.position = new Vector3(rightTop.position.x, UnityEngine.Random.Range(rightTop.position.y, -15),GameManager.Instance._player.position.z + -2);
                 break;
             case 2:
                 //BOTTOM SPAWN
                 var enemySpawn2 = Instantiate(newEnemy);
                 _enemysList.Add(enemySpawn2);
-                enemySpawn2.transform.position = new Vector2(UnityEngine.Random.Range(rightBottom.position.x, -15), rightBottom.position.y);
+                enemySpawn2.transform.position = new Vector3(UnityEngine.Random.Range(rightBottom.position.x, -15), rightBottom.position.y,GameManager.Instance._player.position.z + -2);
                 break;
             case 3:
                 //LEFT SPAWN
                 var enemySpawn3 = Instantiate(newEnemy);
                 _enemysList.Add(enemySpawn3);
-                enemySpawn3.transform.position = new Vector2(leftBottom.position.x, UnityEngine.Random.Range(leftBottom.position.y, 15));
+                enemySpawn3.transform.position = new Vector3(leftBottom.position.x, UnityEngine.Random.Range(leftBottom.position.y, 15),GameManager.Instance._player.position.z + -2);
                 break;
         }
         GameManager.Instance._EnemysList = _enemysList;

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -55,7 +56,7 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(collision.gameObject);
-            _uiController._healthSlider.value -= 25f;
+            GameManager.Instance.bar.value -= collision.gameObject.GetComponent<EnemyScript>()._scObject._damage;
             if(_uiController._healthSlider.value <= 0)
             {
                 OnTakeDamage?.Invoke();

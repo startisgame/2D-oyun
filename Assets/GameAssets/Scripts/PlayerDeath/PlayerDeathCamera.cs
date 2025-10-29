@@ -11,6 +11,8 @@ public class PlayerDeathCamera : MonoBehaviour
 {
     public event Action OnDeathCam;
     [SerializeField] private AudioClip _deathSound;
+    [SerializeField] private AudioClip _deathSound_2;
+    [SerializeField] private AudioClip _deathSound_3;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private RectTransform _whiteScreen;
     [SerializeField] private CinemachineCamera _cinemachineCam;
@@ -19,7 +21,6 @@ public class PlayerDeathCamera : MonoBehaviour
     [SerializeField] private float _camSpeed;
     [SerializeField] private float _camRotSpeed;
     private float shakeTime;
-    private bool firstDeath;
     private bool secondDeath;
     private float targetValue;
     private void Start()
@@ -40,12 +41,13 @@ public class PlayerDeathCamera : MonoBehaviour
         shakeTime = 5;
         _camRotSpeed = 0f;
         _camSpeed = 0f;
-        firstDeath = true;
         Invoke(nameof(SecondReset), 1f);
         _gmInstance.ChangeState(GameStatesEnum.GameOver);
         _audioSource.PlayOneShot(_deathSound);
+        _audioSource.PlayOneShot(_deathSound_2);
         _whiteScreen.GetComponent<Image>().color = new Color(255, 255, 255, 1f);
         _whiteScreen.localScale = new Vector2(35f, 35f);
+        Invoke(nameof(TriggerSound), 1.8f);
         _whiteScreen.GetComponent<Image>().DOFade(0f, 2f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             _whiteScreen.localScale = Vector2.zero;
@@ -54,19 +56,19 @@ public class PlayerDeathCamera : MonoBehaviour
     }
     private void Update()
     {
-        if (firstDeath)
-        {
-            _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, 4f, Time.time / 1f);
-        }
         if (secondDeath)
         {
             Debug.Log(_camSpeed);
             _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, 0.01f, _camSpeed);
             _cinemachineCam.Lens.Dutch = Mathf.Lerp(0f, 270f, _camRotSpeed);
             perlin = _cinemachineCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
-            perlin.AmplitudeGain = Mathf.Lerp(0, 1.5f, shakeTime);
-            perlin.FrequencyGain = Mathf.Lerp(0, .5f, shakeTime);
+            perlin.AmplitudeGain = Mathf.Lerp(0, 1f, shakeTime);
+            perlin.FrequencyGain = Mathf.Lerp(0, .05f, shakeTime);
         }
+    }
+    private void TriggerSound()
+    {
+        _audioSource.PlayOneShot(_deathSound_3);
     }
     private void SecondReset()
     {
@@ -95,18 +97,16 @@ public class PlayerDeathCamera : MonoBehaviour
     private void TriggerCam()
     {
         _gmInstance._UIController._screen.localScale = Vector2.one * 3f;
-        Invoke(nameof(TriggerScreen2Scale), 1f);
-        firstDeath = false;
+        Invoke(nameof(TriggerScreen2Scale), 1.5f);
         secondDeath = false;
         _cinemachineCam.Lens.OrthographicSize = 5f;
         _cinemachineCam.Lens.Dutch = 0f;
-        _audioSource.PlayOneShot(_gmInstance._startSoundd);
         perlin.AmplitudeGain = 3f;
         perlin.FrequencyGain = 0.02f;
         _gmInstance._UIController.OpenMainMenu();
-        foreach (var a in _gmInstance._EnemysList)
+        foreach (var i in _gmInstance._EnemysList)
         {
-            Destroy(a.gameObject);
+            Destroy(i.gameObject);
         }
         _gmInstance.bar.value = 100f;
         _gmInstance._EnemysList.Clear();
