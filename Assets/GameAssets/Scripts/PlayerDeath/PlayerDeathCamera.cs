@@ -64,8 +64,8 @@ public class PlayerDeathCamera : MonoBehaviour
             _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, 0.01f, _camSpeed);
             _cinemachineCam.Lens.Dutch = Mathf.Lerp(0f, 270f, _camRotSpeed);
             perlin = _cinemachineCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
-            perlin.AmplitudeGain = Mathf.Lerp(0, 5f, shakeTime);
-            perlin.FrequencyGain = Mathf.Lerp(0, 3f, shakeTime);
+            perlin.AmplitudeGain = Mathf.Lerp(0, 1.5f, shakeTime);
+            perlin.FrequencyGain = Mathf.Lerp(0, .5f, shakeTime);
         }
     }
     private void SecondReset()
