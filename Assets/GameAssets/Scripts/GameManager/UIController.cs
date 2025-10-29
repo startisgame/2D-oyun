@@ -21,6 +21,8 @@ public class UIController : MonoBehaviour
     [Header("Settings Menu")]
     [SerializeField] private Button _settings_BTN;
     [SerializeField] private Button _settingBack_BTN;
+    [SerializeField] private AudioClip _settingOpenSound;
+    [SerializeField] private AudioClip _settingCloseSound;
     private bool isSettingsOpen;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
@@ -137,6 +139,7 @@ public class UIController : MonoBehaviour
 
     private void SettingsMenuOpen()
     {
+        _source.PlayOneShot(_settingOpenSound);
             for (int i = 0; i < _allButtonsList.Count; i++)
             {
                 _allButtonsList[i].interactable = false;
@@ -149,6 +152,7 @@ public class UIController : MonoBehaviour
     }
     private void SettingsMenuClose()
     {
+        _source.PlayOneShot(_settingCloseSound);
         _settingBack_BTN.interactable = false;
         GameManager.Instance._cineCam.DOMoveY(0f, 2.5f).SetEase(Ease.InOutExpo).OnComplete(() =>
         {
