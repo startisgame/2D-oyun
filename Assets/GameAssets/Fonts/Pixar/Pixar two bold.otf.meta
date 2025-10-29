@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 49976cea1f4ad0442831eb02f06b2bbe
+guid: 4dc3eb75ad906474c9c3b47049d8e710
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Create Future
+  - Pixar Two
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

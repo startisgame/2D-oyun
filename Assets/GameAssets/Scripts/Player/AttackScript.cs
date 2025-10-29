@@ -1,9 +1,11 @@
 using System;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class AttackScript : MonoBehaviour
 {
     public event Action OnKillEnemy;
+    [SerializeField] private HealthCharge _healthCharge;
     [SerializeField] private AudioSource slashSound;
     [SerializeField] private GameObject killEffect;
     [SerializeField] private GameObject _thousandSlashes;
@@ -20,9 +22,11 @@ public class AttackScript : MonoBehaviour
     [SerializeField] private GameObject _currentKillEffect;
     void Start()
     {
+        GameManager.Instance._attackScript = this;
+        _healthCharge = GameManager.Instance._healthUpSc;
+        OnKillEnemy += _healthCharge.HealthUp;
         OnKillEnemy += GameManager.Instance.CounterUI;
         OnKillEnemy += GameManager.Instance.PointUI;
-        GameManager.Instance._attackScript = this;
         switch (GameManager.Instance.gameObject.GetComponent<AttacStateController>().GetCurrentAttackState())
         {
             case AttackState.Slashes:

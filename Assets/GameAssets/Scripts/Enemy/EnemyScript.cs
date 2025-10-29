@@ -10,8 +10,6 @@ public class EnemyScript : MonoBehaviour
 
     private void Start()
     {
-        var enemyColor = GetComponent<SpriteRenderer>().material.color;
-        enemyColor = _scObject._Color;
         _instance = GameManager.Instance;
         this._player = _instance._player;
         transform.right = _player.position;

@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _settingBack_BTN;
     [SerializeField] private AudioClip _settingOpenSound;
     [SerializeField] private AudioClip _settingCloseSound;
-    private bool isSettingsOpen;
+    [SerializeField] private TextMeshProUGUI _allDeaths;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
     [SerializeField] private AudioClip _buttonSound1;
@@ -73,6 +74,7 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
+        GameManager.Instance._totalDeaths = _allDeaths;
         _allButtonsList = new List<Button>();
         GameManager.Instance.bar = _healthSlider;
         GameManager.Instance._UIController = this;

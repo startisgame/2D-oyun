@@ -30,19 +30,20 @@ public class PlayerDeathCamera : MonoBehaviour
         _cinemachineCam = GetComponent<CinemachineCamera>();
         _gmInstance = GameManager.Instance;
         _gmInstance._player.GetComponent<PlayerScript>().OnTakeDamage += OnDeath;
+        perlin = _cinemachineCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
         targetValue = 5f;
     }
     private void OnDeath()
     {
-        for(int i = 0; i < _gmInstance._UIController._allButtonsList.Count; i++)
+        for (int i = 0; i < _gmInstance._UIController._allButtonsList.Count; i++)
         {
             _gmInstance._UIController._allButtonsList[i].interactable = false;
         }
+        _gmInstance.ChangeState(GameStatesEnum.GameOver);
         shakeTime = 5;
         _camRotSpeed = 0f;
         _camSpeed = 0f;
         Invoke(nameof(SecondReset), 1f);
-        _gmInstance.ChangeState(GameStatesEnum.GameOver);
         _audioSource.PlayOneShot(_deathSound);
         _audioSource.PlayOneShot(_deathSound_2);
         _whiteScreen.GetComponent<Image>().color = new Color(255, 255, 255, 1f);
@@ -58,10 +59,8 @@ public class PlayerDeathCamera : MonoBehaviour
     {
         if (secondDeath)
         {
-            Debug.Log(_camSpeed);
             _cinemachineCam.Lens.OrthographicSize = Mathf.Lerp(5f, 0.01f, _camSpeed);
             _cinemachineCam.Lens.Dutch = Mathf.Lerp(0f, 270f, _camRotSpeed);
-            perlin = _cinemachineCam.GetComponent<CinemachineBasicMultiChannelPerlin>();
             perlin.AmplitudeGain = Mathf.Lerp(0, 1f, shakeTime);
             perlin.FrequencyGain = Mathf.Lerp(0, .05f, shakeTime);
         }

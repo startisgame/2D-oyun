@@ -1,16 +1,24 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class HealthCharge : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float increase_HealthValue;
+    [SerializeField] private GameObject _healthUpEffect;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        GameManager.Instance._healthUpSc = this;
+    }
+    
+    public void HealthUp()
+    {
+        if(GameManager.Instance.bar.value < 100 && GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
+        {
+            var effect = Instantiate(_healthUpEffect);
+            Destroy(effect.gameObject, 2f);
+            effect.transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.z + -2);
+            GameManager.Instance.bar.value += increase_HealthValue;
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,11 +31,6 @@ public class PlayerScript : MonoBehaviour
         _isTouched.Disable();
     }
 
-    private void Update()
-    {
-
-    }
-
     private void SpawnAttacK(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play && _currentTime < Time.time)
@@ -60,6 +56,7 @@ public class PlayerScript : MonoBehaviour
             if(_uiController._healthSlider.value <= 0)
             {
                 OnTakeDamage?.Invoke();
+                GameManager.Instance._totalDeaths.text = "TOTAL DEATHS : " + ++GameManager.Instance._AllDeathsCounter;
             }
             Debug.Log(_uiController._healthSlider.value);
         }

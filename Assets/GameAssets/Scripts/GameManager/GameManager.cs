@@ -12,8 +12,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public event Action StateChanged;
     public static GameManager Instance { get; private set; }
+    public event Action StateChanged;
+    public int _AllDeathsCounter = 0;
+    public HealthCharge _healthUpSc;
+    public TextMeshProUGUI _totalDeaths;
     public List<GameObject> _EnemysList;
     public UIController _UIController;
     public AudioClip _startSoundd;
