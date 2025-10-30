@@ -1,9 +1,11 @@
+using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
+    public event Action PlayerDeathAfter;
     private PlayerDeathCamera _deathCam;
     private float shakeTime;
     private float totaleShakeTime;
@@ -17,6 +19,7 @@ public class CameraManager : MonoBehaviour
         Invoke(nameof(StartScreen), 1f);
         _deathCam = GetComponent<PlayerDeathCamera>();
         _deathCam.OnDeathCam += CamTopToDown;
+        PlayerDeathAfter += GameManager.Instance._musicHandler.StartMusicAfterDeath;
     }
     private void CamTopToDown()
     {
@@ -25,7 +28,12 @@ public class CameraManager : MonoBehaviour
     }
     private void StartScreen()
     {
-        transform.DORotate(new Vector3(0f,0f,0f),3f).SetEase(Ease.OutQuart);
+        Invoke(nameof(SSS), 2f);
+        transform.DORotate(new Vector3(0f, 0f, 0f), 3f).SetEase(Ease.OutQuart);
+    }
+    private void SSS()
+    {
+        PlayerDeathAfter?.Invoke();
     }
 
     public void ShakeScreen(float intensity, float time)

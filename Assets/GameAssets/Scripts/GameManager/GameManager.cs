@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public event Action StateChanged;
+    public MusicHandler _musicHandler;
     public int _AllDeathsCounter = 0;
     public HealthCharge _healthUpSc;
     public TextMeshProUGUI _totalDeaths;

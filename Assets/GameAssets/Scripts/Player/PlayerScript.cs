@@ -42,8 +42,8 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 var attack = Instantiate(prefab);
-                _currentTime = Time.time + cooldown;
                 attack.transform.position = worldPos;
+                _currentTime = Time.time + cooldown;
             }
         }}
 
