@@ -66,13 +66,13 @@ public class WaveController : MonoBehaviour
     }
     private void ControlState()
     {
-        if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Pause || GameManager.Instance.GetCurrentState() == GameStatesEnum.MainMenu || GameManager.Instance.GetCurrentState() == GameStatesEnum.GameOver || GameManager.Instance.GetCurrentState() == GameStatesEnum.KillEffects || GameManager.Instance.GetCurrentState() == GameStatesEnum.Settings)
+        if (GameManager.Instance.GetCurrentState() != GameStatesEnum.Play)
         {
             CancelInvoke(nameof(WaveSpawner));
         }
         else if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
         {
-            InvokeRepeating(nameof(WaveSpawner), 1.5f, 1f);
+            InvokeRepeating(nameof(WaveSpawner), 1.5f, 1.5f);
         }
     }
 }

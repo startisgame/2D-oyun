@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63064c5944a24ee40be9108bffb1c8b5, type: 3}
   m_Name: HardEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScriptableO
-  _damage: 30
+  _damage: 100
   _killPoint: 3
   _Color: {r: 1, g: 0, b: 0, a: 1}

@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     public Slider bar;
     public TextMeshProUGUI _point;
     public TextMeshProUGUI _kill;
+    [Header("Totals")]
+    public TextMeshProUGUI _kills;
+    public TextMeshProUGUI _points;
+    public int _TEMP_ALL_KILLS;
+    public int _TEMP_ALL_POINTS;
     private void Awake()
     {
         if (Instance == null)
@@ -47,10 +52,14 @@ public class GameManager : MonoBehaviour
     public void CounterUI()
     {
         ++_currentKill;
+        _TEMP_ALL_KILLS += _currentKill;
+        _kills.text = "TOTAL KILLS : " + _TEMP_ALL_KILLS;
         _kill.text = "KILL : " + _currentKill;
     }
     public void PointUI()
     {
+        _TEMP_ALL_POINTS += _pointCounter;
+        _points.text = "TOTAL POINTS : " + (_TEMP_ALL_POINTS);
         _point.text = "POINT : " + _pointCounter;
     }
     public GameStatesEnum GetCurrentState()

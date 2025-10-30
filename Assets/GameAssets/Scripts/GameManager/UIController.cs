@@ -9,22 +9,32 @@ using UnityEngine.Analytics;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.EditorUtilities;
 
 public class UIController : MonoBehaviour
 {
     private int toggle;
     private bool isCanBuyThis;
+    private bool _statMenuOpened;
     public List<Button> _allButtonsList;
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
     [Header("Canvas 2")]
     public RectTransform _screen;
+    [Header("Credits")]
+    [SerializeField] private Button _creditsBTN;
+    [SerializeField] private Button _creditsBackBTN;
+    [Header("Stats Menu")]
+    [SerializeField] private Button _statsOpen_BTN;
+    [SerializeField] private Button _statsBack_BTN;
+    [SerializeField] private TextMeshProUGUI _allDeaths;
+    [SerializeField] private TextMeshProUGUI _totalPoints;
+    [SerializeField] private TextMeshProUGUI _totalKills;
     [Header("Settings Menu")]
     [SerializeField] private Button _settings_BTN;
     [SerializeField] private Button _settingBack_BTN;
     [SerializeField] private AudioClip _settingOpenSound;
     [SerializeField] private AudioClip _settingCloseSound;
-    [SerializeField] private TextMeshProUGUI _allDeaths;
     [Header("Main Menu")]
     [SerializeField] private RectTransform _mainMenu;
     [SerializeField] private AudioClip _buttonSound1;
@@ -74,27 +84,43 @@ public class UIController : MonoBehaviour
     // ---------------------------------
     private void Start()
     {
+        GameManager.Instance._kills = _totalKills;
+        GameManager.Instance._points = _totalPoints;
         GameManager.Instance._totalDeaths = _allDeaths;
+
         _allButtonsList = new List<Button>();
+
         GameManager.Instance.bar = _healthSlider;
         GameManager.Instance._UIController = this;
-        Invoke(nameof(StartSound), 0.2f);
         GameManager.Instance._startSoundd = _startSound;
+
+        Invoke(nameof(StartSound), 0.2f);
+
+        _statsBack_BTN.onClick.AddListener(StatsMenuClose);
+        _statsOpen_BTN.onClick.AddListener(StatsMenuOpen);
         _killEffects_BTN.onClick.AddListener(OpenKillEffectsMenu);
         _killBack_BTN.onClick.AddListener(CloseKillEffectsMenu);
         _AttackEffectsBTN.onClick.AddListener(OpenAttackEffectsMenu);
         _AttackBack_BTN.onClick.AddListener(CloseAttackEffectsMenu);
         _openMenu.onClick.AddListener(OpenMainMenu);
+
         toggle = 1;
+
         id = Shader.PropertyToID("_MainTex");
+
         _settingBack_BTN.onClick.AddListener(SettingsMenuClose);
         _settings_BTN.onClick.AddListener(SettingsMenuOpen);
+
         AttackEffect_1_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_1_BTN); });
         AttackEffect_2_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_2_BTN); });
         AttackEffect_3_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_3_BTN); });
         AttackEffect_4_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_4_BTN); });
         AttackEffect_5_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_5_BTN); });
-        
+
+        //_allButtonsList.Add(_creditsBackBTN);
+        //_allButtonsList.Add(_creditsBTN);
+        _allButtonsList.Add(_statsBack_BTN);
+        _allButtonsList.Add(_statsOpen_BTN);
         _allButtonsList.Add(_settingBack_BTN);
         _allButtonsList.Add(_settings_BTN);
         _allButtonsList.Add(_AttackEffectsBTN);
@@ -116,13 +142,14 @@ public class UIController : MonoBehaviour
         _killBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _AttackBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _openMenu.onClick.AddListener(ButtonSoundEffects);
-        Invoke(nameof(OpenMainMenu), .1f);
+
+        Invoke(nameof(OpenMainMenu), .3f);
         Invoke(nameof(Screen2Scale), 2.4f);
     }
 
     private void Update()
     {
-        if (attackMenuOpen || killMenuOpen)
+        if (attackMenuOpen || killMenuOpen || _statMenuOpened)
         {
             float yOffset = Time.time * -0.7f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
@@ -139,18 +166,53 @@ public class UIController : MonoBehaviour
         _source.PlayOneShot(_startSound);
     }
 
+    private void StatsMenuOpen()
+    {
+        _statMenuOpened = true;
+        for (int i = 0; i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
+        GameManager.Instance._cineCam.DOMove(new Vector3(60.4f, 138.4f, -50f), 2.5f).SetEase(Ease.InOutQuart).OnComplete(() =>
+        {
+            for (int i = 0; i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = true;
+            }
+        });
+    }
+    
+    private void StatMenuBoolReset()
+    {
+        _statMenuOpened = false;
+    }
+
+    private void StatsMenuClose()
+    {
+        Invoke(nameof(StatMenuBoolReset), 1f);
+        for (int i = 0; i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
+        GameManager.Instance._cineCam.DOMoveX(0f, 2.5f).SetEase(Ease.InOutExpo);
+        SettingsMenuOpen();
+    }
+
     private void SettingsMenuOpen()
     {
         _source.PlayOneShot(_settingOpenSound);
+        for (int i = 0; i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
+        GameManager.Instance._cineCam.DOMoveY(90f, 2.5f).SetEase(Ease.InOutExpo).OnComplete(() =>
+        {
             for (int i = 0; i < _allButtonsList.Count; i++)
             {
-                _allButtonsList[i].interactable = false;
+                _allButtonsList[i].interactable = true;
             }
-            GameManager.Instance._cineCam.DOMoveY(90f, 2.5f).SetEase(Ease.InOutExpo).OnComplete(() =>
-            {
-                _settingBack_BTN.interactable = true;
-            });
-            _screen.DOScale(3f, 3.5f).SetEase(Ease.OutQuart);
+        });
+        _screen.DOScale(3f, 3.5f).SetEase(Ease.OutQuart);
     }
     private void SettingsMenuClose()
     {

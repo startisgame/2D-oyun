@@ -19,16 +19,18 @@ public class CameraManager : MonoBehaviour
         Invoke(nameof(StartScreen), 1f);
         _deathCam = GetComponent<PlayerDeathCamera>();
         _deathCam.OnDeathCam += CamTopToDown;
-        PlayerDeathAfter += GameManager.Instance._musicHandler.StartMusicAfterDeath;
     }
     private void CamTopToDown()
     {
         transform.rotation = Quaternion.Euler(new Vector3(-35f, 0f, 0f));
         Invoke(nameof(StartScreen), 1f);
+        PlayerDeathAfter += GameManager.Instance._musicHandler.StartMusicAfterDeath;
     }
     private void StartScreen()
     {
-        Invoke(nameof(SSS), 2f);
+        Invoke(nameof(SSS), 1f);
+        GameManager.Instance._currentKill = 0;
+        GameManager.Instance.CounterUI();
         transform.DORotate(new Vector3(0f, 0f, 0f), 3f).SetEase(Ease.OutQuart);
     }
     private void SSS()

@@ -22,6 +22,7 @@ public class MusicHandler : MonoBehaviour
     [SerializeField] private AudioClip _music7;
     [SerializeField] private AudioClip _music8;
     [SerializeField] private AudioClip _music9;
+    [SerializeField] private AudioClip _music10;
     private DOTween _currentTween;
     private float _currentSoundVolume;
     private int _currentAudio = 0;
@@ -41,6 +42,7 @@ public class MusicHandler : MonoBehaviour
         _audioList.Add(_music7);
         _audioList.Add(_music8);
         _audioList.Add(_music9);
+        _audioList.Add(_music10);
         _musicBar.onValueChanged.AddListener(MusicValue);
         _sourcee.volume = 0f;
         _sourcee.Stop();
