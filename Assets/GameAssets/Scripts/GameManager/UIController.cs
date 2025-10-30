@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
 {
     private int toggle;
     private bool isCanBuyThis;
-    private bool _statMenuOpened;
+    private bool _statsMenuOpened;
     public List<Button> _allButtonsList;
     [SerializeField] private AudioClip _startSound;
     [SerializeField] private Button _openMenu;
@@ -25,9 +25,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _creditsBTN;
     [SerializeField] private Button _creditsBackBTN;
     [Header("Stats Menu")]
+    [SerializeField] private Material _statsBackground;
     [SerializeField] private Button _statsOpen_BTN;
     [SerializeField] private Button _statsBack_BTN;
-    [SerializeField] private TextMeshProUGUI _allDeaths;
     [SerializeField] private TextMeshProUGUI _totalPoints;
     [SerializeField] private TextMeshProUGUI _totalKills;
     [Header("Settings Menu")]
@@ -86,7 +86,6 @@ public class UIController : MonoBehaviour
     {
         GameManager.Instance._kills = _totalKills;
         GameManager.Instance._points = _totalPoints;
-        GameManager.Instance._totalDeaths = _allDeaths;
 
         _allButtonsList = new List<Button>();
 
@@ -135,6 +134,8 @@ public class UIController : MonoBehaviour
         killEffect_4_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_4_BTN); });
         killEffect_5_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_5_BTN); });
 
+        _statsOpen_BTN.onClick.AddListener(ButtonSoundEffects);
+        _statsBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _settingBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _settings_BTN.onClick.AddListener(ButtonSoundEffects);
         _AttackEffectsBTN.onClick.AddListener(ButtonSoundEffects);
@@ -149,10 +150,15 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        if (attackMenuOpen || killMenuOpen || _statMenuOpened)
+        if (attackMenuOpen || killMenuOpen)
         {
-            float yOffset = Time.time * -0.7f;
+            float yOffset = Time.time * -2f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
+        }
+        if (_statsMenuOpened)
+        {
+            float offsets = Time.time * -0.7f;
+            _statsBackground.SetTextureOffset(id, new Vector2(0f, offsets));
         }
     }
 
@@ -168,7 +174,7 @@ public class UIController : MonoBehaviour
 
     private void StatsMenuOpen()
     {
-        _statMenuOpened = true;
+        _statsMenuOpened = true;
         for (int i = 0; i < _allButtonsList.Count; i++)
         {
             _allButtonsList[i].interactable = false;
@@ -184,7 +190,7 @@ public class UIController : MonoBehaviour
     
     private void StatMenuBoolReset()
     {
-        _statMenuOpened = false;
+        _statsMenuOpened = false;
     }
 
     private void StatsMenuClose()

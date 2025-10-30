@@ -22,6 +22,7 @@ public class AttackScript : MonoBehaviour
     [SerializeField] private GameObject _currentKillEffect;
     void Start()
     {
+        slashSound.volume = GameManager.Instance._soundValue;
         GameManager.Instance._attackScript = this;
         _healthCharge = GameManager.Instance._healthUpSc;
         OnKillEnemy += _healthCharge.HealthUp;

@@ -214,8 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 00b2a55319476cf40b84578eb2f8c2df, type: 2}
-  m_Color: {r: 0.46226418, g: 0.060483467, b: 0.019624414, a: 1}
+  m_Material: {fileID: 2100000, guid: 632245de9bfd19f48985ddb73289a62f, type: 2}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2436,8 +2436,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4127159040
-  m_fontColor: {r: 0, g: 0.45166302, b: 1, a: 0.9607843}
+    rgba: 4294931200
+  m_fontColor: {r: 0, g: 0.45098042, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4211,7 +4211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: bdca3b39c71fe4740a446e8c26446a50, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.44705883}
+  m_Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 0.44705883}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4460,15 +4460,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: a61ea4f971940c1409c88001f4af9b18, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 35accc1361dc11346a2c1821971679fd, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4659,7 +4659,7 @@ MonoBehaviour:
   _uiController: {fileID: 1005676499}
   cameraMain: {fileID: 0}
   prefab: {fileID: 6032911209144818146, guid: 4b6bc437a56b82041877ac268ccdf32d, type: 3}
-  cooldown: 1
+  cooldown: 1.5
   _currentTime: 0
 --- !u!212 &937937828
 SpriteRenderer:
@@ -5355,9 +5355,9 @@ MonoBehaviour:
   _screen: {fileID: 2010750332}
   _creditsBTN: {fileID: 0}
   _creditsBackBTN: {fileID: 0}
+  _statsBackground: {fileID: 2100000, guid: 4760df195388bdd43b81dd6eb726c788, type: 2}
   _statsOpen_BTN: {fileID: 675724041}
   _statsBack_BTN: {fileID: 1233993708}
-  _allDeaths: {fileID: 1150442802}
   _totalPoints: {fileID: 1687104372}
   _totalKills: {fileID: 570809373}
   _settings_BTN: {fileID: 1230955557}
@@ -6547,8 +6547,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4125648127
-  m_fontColor: {r: 1, g: 0.3915094, b: 0.9092086, a: 0.9607843}
+    rgba: 4293420287
+  m_fontColor: {r: 1, g: 0.3915094, b: 0.9092086, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6969,7 +6969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 00b2a55319476cf40b84578eb2f8c2df, type: 2}
-  m_Color: {r: 1, g: 0.12303038, b: 0, a: 1}
+  m_Color: {r: 0.3679245, g: 0.22065629, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7088,8 +7088,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: a61ea4f971940c1409c88001f4af9b18, type: 2}
-  m_Color: {r: 1, g: 0.43867922, b: 0.9860542, a: 1}
+  m_Material: {fileID: 2100000, guid: 7fd9558895b67494eb2f7f39156609d4, type: 2}
+  m_Color: {r: 0.3679245, g: 0.053800277, b: 0.35913777, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7797,7 +7797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: d8bfd8e382dd58d4c8367e59434e8dd6, type: 2}
-  m_Color: {r: 0.21960784, g: 0.09411765, b: 1, a: 0.36078432}
+  m_Color: {r: 0.070193134, g: 0, b: 0.23584908, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9568,7 +9568,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6530, y: 15000}
-  m_SizeDelta: {x: 1650, y: 600}
+  m_SizeDelta: {x: 1920, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1720156692
 GameObject:
@@ -10046,7 +10046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 2100000, guid: 96d60590d2a3f0143a9a84d4568d9de8, type: 2}
+  m_Material: {fileID: 2100000, guid: 4760df195388bdd43b81dd6eb726c788, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -11268,8 +11268,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294309365
+  m_fontColor: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11770,9 +11770,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _musicHandler: {fileID: 0}
+  _soundValue: 0
   _AllDeathsCounter: 0
   _healthUpSc: {fileID: 0}
-  _totalDeaths: {fileID: 0}
   _EnemysList: []
   _UIController: {fileID: 0}
   _startSoundd: {fileID: 0}
@@ -11787,10 +11787,12 @@ MonoBehaviour:
   bar: {fileID: 0}
   _point: {fileID: 1982798366}
   _kill: {fileID: 872680600}
-  _kills: {fileID: 0}
-  _points: {fileID: 0}
+  _totalDeaths: {fileID: 1150442802}
+  _kills: {fileID: 570809373}
+  _points: {fileID: 1687104372}
   _TEMP_ALL_KILLS: 0
   _TEMP_ALL_POINTS: 0
+  _TEMP_ALL_DEATHS: 0
 --- !u!4 &2122207068
 Transform:
   m_ObjectHideFlags: 0

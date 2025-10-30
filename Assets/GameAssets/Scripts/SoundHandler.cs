@@ -15,5 +15,6 @@ public class SoundHandler : MonoBehaviour
     {
         _audio1.volume = newValue;
         _audio2.volume = newValue;
+        GameManager.Instance._soundValue = newValue;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using TMPro.EditorUtilities;
 using Unity.Cinemachine;
 using UnityEngine;
 public class CameraManager : MonoBehaviour
@@ -30,7 +31,7 @@ public class CameraManager : MonoBehaviour
     {
         Invoke(nameof(SSS), 1f);
         GameManager.Instance._currentKill = 0;
-        GameManager.Instance.CounterUI();
+        GameManager.Instance._kill.text = "KILLS : 0";
         transform.DORotate(new Vector3(0f, 0f, 0f), 3f).SetEase(Ease.OutQuart);
     }
     private void SSS()

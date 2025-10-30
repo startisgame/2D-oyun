@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
             if(_uiController._healthSlider.value <= 0)
             {
                 OnTakeDamage?.Invoke();
-                GameManager.Instance._totalDeaths.text = "TOTAL DEATHS : " + ++GameManager.Instance._AllDeathsCounter;
+                GameManager.Instance.DeathUI();
             }
             Debug.Log(_uiController._healthSlider.value);
         }
