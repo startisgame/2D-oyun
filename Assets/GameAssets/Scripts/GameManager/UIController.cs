@@ -174,12 +174,12 @@ public class UIController : MonoBehaviour
     {
         if (attackMenuOpen || killMenuOpen)
         {
-            float yOffset = Time.time * -2f;
+            float yOffset = Time.time * -0.7f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
         }
         if (_statsMenuOpened || _isCreditsMenuOpen)
         {
-            float offsets = Time.time * -0.9f;
+            float offsets = Time.time * -0.7f;
             _statsBackground.SetTextureOffset(id, new Vector2(0f, offsets));
         }
     }
@@ -329,6 +329,7 @@ public class UIController : MonoBehaviour
                     Destroy(_effect.gameObject, 1f);
                     GameManager.Instance.gameObject.GetComponent<AttacStateController>().ChangeAttackState(AttackState.ChargeEffect_1);
                     isCanBuyThis = true;
+                    _attackEffect_2_isBuyyed = true;
                 }
                 else if (_attackEffect_2_isBuyyed)
                 {
@@ -341,10 +342,10 @@ public class UIController : MonoBehaviour
                 else { isCanBuyThis = false; }
 
             }
-            else if (clickedBTN == AttackEffect_3_BTN && !_attackEffect_3_isBuyyed)
+            else if (clickedBTN == AttackEffect_3_BTN)
             {
                 pointMinimum = 30;
-                if (GameManager.Instance._pointCounter >= pointMinimum)
+                if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_3_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
                     var _effect = Instantiate(_buyEffect);
@@ -352,6 +353,7 @@ public class UIController : MonoBehaviour
                     Destroy(_effect.gameObject, 1f);
                     GameManager.Instance.gameObject.GetComponent<AttacStateController>().ChangeAttackState(AttackState.ChargeEffect_2);
                     isCanBuyThis = true;
+                    _attackEffect_3_isBuyyed = true;
                 }
                 else if (_attackEffect_3_isBuyyed)
                 {
@@ -363,10 +365,10 @@ public class UIController : MonoBehaviour
                 }
                 else { isCanBuyThis = false; }
             }
-            else if (clickedBTN == AttackEffect_4_BTN && !_attackEffect_4_isBuyyed)
+            else if (clickedBTN == AttackEffect_4_BTN)
             {
                 pointMinimum = 1500;
-                if (GameManager.Instance._pointCounter >= pointMinimum)
+                if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_4_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
                     var _effect = Instantiate(_buyEffect);
@@ -374,6 +376,7 @@ public class UIController : MonoBehaviour
                     Destroy(_effect.gameObject, 1f);
                     GameManager.Instance.gameObject.GetComponent<AttacStateController>().ChangeAttackState(AttackState.ChargeEffect_3);
                     isCanBuyThis = true;
+                    _attackEffect_4_isBuyyed = true;
                 }
                 else if (_attackEffect_4_isBuyyed)
                 {
@@ -385,10 +388,10 @@ public class UIController : MonoBehaviour
                 }
                 else { isCanBuyThis = false; }
             }
-            else if (clickedBTN == AttackEffect_5_BTN && !_attackEffect_5_isBuyyed)
+            else if (clickedBTN == AttackEffect_5_BTN)
             {
                 pointMinimum = 2000;
-                if (GameManager.Instance._pointCounter >= pointMinimum)
+                if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_5_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
                     var _effect = Instantiate(_buyEffect);
@@ -396,6 +399,7 @@ public class UIController : MonoBehaviour
                     Destroy(_effect.gameObject, 1f);
                     GameManager.Instance.gameObject.GetComponent<AttacStateController>().ChangeAttackState(AttackState.StoneSlashEffect);
                     isCanBuyThis = true;
+                    _attackEffect_5_isBuyyed = true;
                 }
                 else if (_attackEffect_5_isBuyyed)
                 {
@@ -489,6 +493,7 @@ public class UIController : MonoBehaviour
                     _effect.transform.position = killEffect_2_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_2);
                     isCanBuyThis = true;
+                    _killEffect_2_isBuyyed = true;
                 }
                 else if (_killEffect_2_isBuyyed)
                 {
@@ -511,6 +516,7 @@ public class UIController : MonoBehaviour
                     _effect.transform.position = killEffect_3_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_3);
                     isCanBuyThis = true;
+                    _killEffect_3_isBuyyed = true;
                 }
                 else if (_killEffect_3_isBuyyed)
                 {
@@ -533,6 +539,7 @@ public class UIController : MonoBehaviour
                     _effect.transform.position = killEffect_4_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_4);
                     isCanBuyThis = true;
+                    _killEffect_4_isBuyyed = true;
                 }
                 else if (_killEffect_4_isBuyyed)
                 {
@@ -544,10 +551,10 @@ public class UIController : MonoBehaviour
                 }
                 else { isCanBuyThis = false; }
             }
-            else if (clickedBTN == killEffect_5_BTN && !_killEffect_5_isBuyyed)
+            else if (clickedBTN == killEffect_5_BTN)
             {
                 pointMinimum = 30;
-                if (GameManager.Instance._pointCounter >= pointMinimum)
+                if (GameManager.Instance._pointCounter >= pointMinimum && !_killEffect_5_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
                     var _effect = Instantiate(_buyEffect);
@@ -555,6 +562,7 @@ public class UIController : MonoBehaviour
                     _effect.transform.position = killEffect_5_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_5);
                     isCanBuyThis = true;
+                    _killEffect_5_isBuyyed = true;
                 }
                 else if (_killEffect_5_isBuyyed)
                 {
