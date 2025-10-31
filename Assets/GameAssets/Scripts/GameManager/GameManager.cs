@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI _totalDeaths;
     public TextMeshProUGUI _kills;
     public TextMeshProUGUI _points;
+    public int _killCount;
+    public int _pointCount;
     public int _TEMP_ALL_KILLS;
     public int _TEMP_ALL_POINTS;
     public int _TEMP_ALL_DEATHS;
@@ -53,17 +55,16 @@ public class GameManager : MonoBehaviour
     }
     public void CounterUI()
     {
-        Debug.Log("Killl");
-        ++_currentKill;
-        _TEMP_ALL_KILLS += _currentKill;
+        _TEMP_ALL_KILLS += 1;
         _kills.text = "TOTAL KILLS : " + _TEMP_ALL_KILLS;
-        _kill.text = "KILL : " + _currentKill;
+        _kill.text = "KILL : " + ++_currentKill;
     }
     public void PointUI()
     {
-        _TEMP_ALL_POINTS += _pointCounter;
+        _TEMP_ALL_POINTS += _pointCount;
         _points.text = "TOTAL POINTS : " + _TEMP_ALL_POINTS;
         _point.text = "POINT : " + _pointCounter;
+        _pointCount = 0;
     }
     public void DeathUI()
     {

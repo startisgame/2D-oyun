@@ -388,7 +388,7 @@ public class UIController : MonoBehaviour
                 }
             }
             _source.PlayOneShot(_currentClip);
-            GameManager.Instance.PointUI();
+            GameManager.Instance._point.text = "POINT : " + GameManager.Instance._pointCounter;
         }
     }
 
@@ -435,7 +435,7 @@ public class UIController : MonoBehaviour
                     isCanBuyThis = true;
                     var _effect = Instantiate(_buyEffect);
                     Destroy(_effect.gameObject, 1f);
-                    _effect.transform.position = killEffect_2_BTN.transform.position;
+                    _effect.transform.position = killEffect_3_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_3);
                 } else { isCanBuyThis = false; }
             }
@@ -447,7 +447,7 @@ public class UIController : MonoBehaviour
                     isCanBuyThis = true;
                     var _effect = Instantiate(_buyEffect);
                     Destroy(_effect.gameObject, 1f);
-                    _effect.transform.position = killEffect_2_BTN.transform.position;
+                    _effect.transform.position = killEffect_4_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_4);
                 } else { isCanBuyThis = false; }
             }
@@ -459,7 +459,7 @@ public class UIController : MonoBehaviour
                     isCanBuyThis = true;
                     var _effect = Instantiate(_buyEffect);
                     Destroy(_effect.gameObject, 1f);
-                    _effect.transform.position = killEffect_2_BTN.transform.position;
+                    _effect.transform.position = killEffect_5_BTN.transform.position;
                     GameManager.Instance.gameObject.GetComponent<KillStateController>().ChangeKillState(KillState.Kill_5);
                 } else { isCanBuyThis = false; }
             }
@@ -507,7 +507,7 @@ public class UIController : MonoBehaviour
                 }
             }
             _source.PlayOneShot(_currentClip);
-            GameManager.Instance.PointUI();
+            GameManager.Instance._point.text = "POINT : " + GameManager.Instance._pointCounter;
         }
     }
 

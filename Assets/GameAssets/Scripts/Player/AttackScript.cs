@@ -66,6 +66,7 @@ public class AttackScript : MonoBehaviour
         {
             var sc = other.GetComponent<EnemyScript>()._scObject._killPoint;
             GameManager.Instance._pointCounter += sc;
+            GameManager.Instance._pointCount = sc;
             OnKillEnemy?.Invoke();
             switch (GameManager.Instance.gameObject.GetComponent<KillStateController>().GetCurrentKillState())
             {
