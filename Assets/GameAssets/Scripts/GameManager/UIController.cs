@@ -162,7 +162,7 @@ public class UIController : MonoBehaviour
         }
         if (_statsMenuOpened || _isCreditsMenuOpen)
         {
-            float offsets = Time.time * -0.7f;
+            float offsets = Time.time * -0.9f;
             _statsBackground.SetTextureOffset(id, new Vector2(0f, offsets));
         }
     }

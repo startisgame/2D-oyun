@@ -1,3 +1,4 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class SoundHandler : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance._soundValue = 1f;
         _soundSlider.onValueChanged.AddListener(OnValueChanged);
     }
     private void OnValueChanged(float newValue)

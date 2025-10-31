@@ -3201,7 +3201,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -4984
+  m_SortingOrder: -6389
   m_Sprite: {fileID: 21300000, guid: b209f9c2b8447324ea291c48005027e5, type: 3}
   m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   m_FlipX: 0
@@ -12297,6 +12297,8 @@ MonoBehaviour:
   _totalDeaths: {fileID: 1150442802}
   _kills: {fileID: 570809373}
   _points: {fileID: 1687104372}
+  _killCount: 0
+  _pointCount: 0
   _TEMP_ALL_KILLS: 0
   _TEMP_ALL_POINTS: 0
   _TEMP_ALL_DEATHS: 0
