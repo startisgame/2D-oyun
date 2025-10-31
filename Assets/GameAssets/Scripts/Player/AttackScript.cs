@@ -7,6 +7,21 @@ public class AttackScript : MonoBehaviour
     public event Action OnKillEnemy;
     [SerializeField] private HealthCharge _healthCharge;
     [SerializeField] private AudioSource slashSound;
+    [Header("Audios")]
+    [SerializeField] private AudioClip _currentAudioClip;
+    [Header("Attack Sounds")]
+    [SerializeField] private AudioClip _attackSound_1;
+    [SerializeField] private AudioClip _attackSound_2;
+    [SerializeField] private AudioClip _attackSound_3;                                                  
+    [SerializeField] private AudioClip _attackSound_4;
+    [SerializeField] private AudioClip _attackSound_5;
+    [Header("Kill Sounds")]
+    [SerializeField] private AudioClip _killSound_1;
+    [SerializeField] private AudioClip _killSound_2;
+    [SerializeField] private AudioClip _killSound_3;
+    [SerializeField] private AudioClip _killSound_4;
+    [SerializeField] private AudioClip _killSound_5;
+    [Space]
     [SerializeField] private GameObject killEffect;
     [SerializeField] private GameObject _thousandSlashes;
     [SerializeField] private GameObject _chargeAttack1;
@@ -34,29 +49,34 @@ public class AttackScript : MonoBehaviour
                 var attackEffect_1 = Instantiate(_thousandSlashes);
                 attackEffect_1.transform.position = transform.position;
                 Destroy(attackEffect_1.gameObject, 2f);
+                _currentAudioClip = _attackSound_1;
                 break;
             case AttackState.ChargeEffect_1:
                 var attackEffect_2 = Instantiate(_chargeAttack1);
                 attackEffect_2.transform.position = transform.position;
                 Destroy(attackEffect_2.gameObject, 2f);
+                _currentAudioClip = _attackSound_2;
                 break;
             case AttackState.ChargeEffect_2:
                 var attackEffect_3 = Instantiate(_chargeAttack2);
                 attackEffect_3.transform.position = transform.position;
                 Destroy(attackEffect_3.gameObject, 2f);
+                _currentAudioClip = _attackSound_3;
                 break;
             case AttackState.ChargeEffect_3:
                 var attackEffect_4 = Instantiate(_chargeAttack3);
                 attackEffect_4.transform.position = transform.position;
                 Destroy(attackEffect_4.gameObject, 2f);
+                _currentAudioClip = _attackSound_4;
                 break;
             case AttackState.StoneSlashEffect:
                 var attackEffect_5 = Instantiate(_stoneSlashAttack);
                 attackEffect_5.transform.position = transform.position;
                 Destroy(attackEffect_5.gameObject, 2f);
+                _currentAudioClip = _attackSound_5;
                 break;
         }
-        slashSound.Play();
+        slashSound.PlayOneShot(_currentAudioClip);
         Destroy(this.gameObject, 2f);
         Invoke(nameof(TurnOFFTrigger), 1f);
     }

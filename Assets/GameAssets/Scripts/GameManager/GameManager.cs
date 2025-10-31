@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        _currentState = GameStatesEnum.Play;
+        _currentState = GameStatesEnum.MainMenu;
     }
     public void CounterUI()
     {

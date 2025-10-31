@@ -15,7 +15,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private float cooldown;
     [SerializeField] private float _currentTime;
-    private void OnEnable()
+
+    private void Start()
     {
         cameraMain = Camera.main;
         _touchPos = _asset.FindActionMap("Player").FindAction("Touch");

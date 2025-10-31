@@ -106,7 +106,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b969a4c1b4db96418499c46bc644818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackScript
+  _healthCharge: {fileID: 0}
   slashSound: {fileID: -4924538028200598483}
+  _currentAudioClip: {fileID: 0}
+  _attackSound_1: {fileID: 8300000, guid: db309cabf1831724db48ef3354d0a59a, type: 3}
+  _attackSound_2: {fileID: 0}
+  _attackSound_3: {fileID: 8300000, guid: 43370743f7ebaa94ba1d1c989aaa26b8, type: 3}
+  _attackSound_4: {fileID: 0}
+  _attackSound_5: {fileID: 0}
+  _killSound_1: {fileID: 0}
+  _killSound_2: {fileID: 0}
+  _killSound_3: {fileID: 0}
+  _killSound_4: {fileID: 0}
+  _killSound_5: {fileID: 0}
   killEffect: {fileID: 8500920156052182585, guid: 830e92a3f95c4b04caf8edd648aed9bd, type: 3}
   _thousandSlashes: {fileID: 689667626583958020, guid: 1336648bc1d8baf46a4515860950c9d4, type: 3}
   _chargeAttack1: {fileID: 3367314013316085171, guid: 8b20002c2b69a9d44ab5bae8e1d923cd, type: 3}
