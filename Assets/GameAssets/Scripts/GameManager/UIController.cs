@@ -24,6 +24,7 @@ public class UIController : MonoBehaviour
     [Header("Credits")]
     [SerializeField] private Button _creditsBTN;
     [SerializeField] private Button _creditsBackBTN;
+    private bool _isCreditsMenuOpen;
     [Header("Stats Menu")]
     [SerializeField] private Material _statsBackground;
     [SerializeField] private Button _statsOpen_BTN;
@@ -95,6 +96,8 @@ public class UIController : MonoBehaviour
 
         Invoke(nameof(StartSound), 0.2f);
 
+        _creditsBackBTN.onClick.AddListener(CreditsMenuClose);
+        _creditsBTN.onClick.AddListener(CreditsMenuOpen);
         _statsBack_BTN.onClick.AddListener(StatsMenuClose);
         _statsOpen_BTN.onClick.AddListener(StatsMenuOpen);
         _killEffects_BTN.onClick.AddListener(OpenKillEffectsMenu);
@@ -116,8 +119,8 @@ public class UIController : MonoBehaviour
         AttackEffect_4_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_4_BTN); });
         AttackEffect_5_BTN.onClick.AddListener(() => { AttackEffectChooser(AttackEffect_5_BTN); });
 
-        //_allButtonsList.Add(_creditsBackBTN);
-        //_allButtonsList.Add(_creditsBTN);
+        _allButtonsList.Add(_creditsBackBTN);
+        _allButtonsList.Add(_creditsBTN);
         _allButtonsList.Add(_statsBack_BTN);
         _allButtonsList.Add(_statsOpen_BTN);
         _allButtonsList.Add(_settingBack_BTN);
@@ -134,6 +137,8 @@ public class UIController : MonoBehaviour
         killEffect_4_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_4_BTN); });
         killEffect_5_BTN.onClick.AddListener(() => { KillEffectChooser(killEffect_5_BTN); });
 
+        _creditsBackBTN.onClick.AddListener(ButtonSoundEffects);
+        _creditsBTN.onClick.AddListener(ButtonSoundEffects);
         _statsOpen_BTN.onClick.AddListener(ButtonSoundEffects);
         _statsBack_BTN.onClick.AddListener(ButtonSoundEffects);
         _settingBack_BTN.onClick.AddListener(ButtonSoundEffects);
@@ -155,7 +160,7 @@ public class UIController : MonoBehaviour
             float yOffset = Time.time * -2f;
             menuOffset.SetTextureOffset(id, new Vector2(0f, yOffset));
         }
-        if (_statsMenuOpened)
+        if (_statsMenuOpened || _isCreditsMenuOpen)
         {
             float offsets = Time.time * -0.7f;
             _statsBackground.SetTextureOffset(id, new Vector2(0f, offsets));
@@ -187,10 +192,40 @@ public class UIController : MonoBehaviour
             }
         });
     }
-    
+
+    private void CreditsMenuOpen()
+    {
+        _isCreditsMenuOpen = true;
+        for (int i = 0; i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
+        GameManager.Instance._cineCam.DOMove(new Vector3(-60.4f, 138.4f, -50f), 2.5f).SetEase(Ease.InOutQuart).OnComplete(() =>
+        {
+            for (int i = 0; i < _allButtonsList.Count; i++)
+            {
+                _allButtonsList[i].interactable = true;
+            }
+        });
+    }
+    private void CreditsMenuClose()
+    {
+        for (int i = 0; i < _allButtonsList.Count; i++)
+        {
+            _allButtonsList[i].interactable = false;
+        }
+        SettingsMenuOpen();
+        GameManager.Instance._cineCam.DOMoveX(0f, 2.5f).SetEase(Ease.InOutQuart);
+        Invoke(nameof(CreditMenuBoolReset), 1f);
+    }
+
     private void StatMenuBoolReset()
     {
         _statsMenuOpened = false;
+    }
+        private void CreditMenuBoolReset()
+    {
+        _isCreditsMenuOpen = false;
     }
 
     private void StatsMenuClose()
@@ -200,8 +235,8 @@ public class UIController : MonoBehaviour
         {
             _allButtonsList[i].interactable = false;
         }
-        GameManager.Instance._cineCam.DOMoveX(0f, 2.5f).SetEase(Ease.InOutExpo);
         SettingsMenuOpen();
+        GameManager.Instance._cineCam.DOMoveX(0f, 2.5f).SetEase(Ease.InOutExpo);
     }
 
     private void SettingsMenuOpen()
