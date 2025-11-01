@@ -19,10 +19,10 @@ public class WaveController : MonoBehaviour
     [SerializeField] private float _waveCooldown;
     private float _waveTimeValue;
     private float _nextTime;
-    private int _waveCounter;
+    public int _waveCounter;
     private float _spawnRate;
-    private float _WaveEnemyMaxSpeed;
-    private float _WaveEnemyMinSpeed;
+    public float _WaveEnemyMaxSpeed;
+    public float _WaveEnemyMinSpeed;
     private bool oneTime;
     private int _MAX_SPAWN_VALUE;
     public int _MAX_SPAWN_VALUE_COUNTER;
@@ -52,7 +52,7 @@ public class WaveController : MonoBehaviour
             {
                 isEarlyFinished = true;
                 _MAX_SPAWN_VALUE_COUNTER = 0;
-                _MAX_SPAWN_VALUE += 15;
+                _MAX_SPAWN_VALUE += 10;
                 GameManager.Instance._EnemysList.Clear();
                 CancelInvoke(nameof(WaveSpawner));
             }
@@ -87,7 +87,7 @@ public class WaveController : MonoBehaviour
                     ++_waveCounter;
                     _waveText.text = "WAVE " + _waveCounter;
                     _WaveEnemyMinSpeed += 0.005f;
-                    _WaveEnemyMaxSpeed += 0.008f;
+                    _WaveEnemyMaxSpeed += 0.01f;
                     GameManager.Instance._newEnemyMaxSpeed = _WaveEnemyMaxSpeed;
                     GameManager.Instance._newEnemyMinSpeed = _WaveEnemyMinSpeed;
                     _spawnRate -= 0.005f;

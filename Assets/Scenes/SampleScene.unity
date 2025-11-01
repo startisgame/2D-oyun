@@ -2259,8 +2259,11 @@ MonoBehaviour:
   leftBottom: {fileID: 917901289}
   _waveText: {fileID: 450746368}
   _waveCooldown: 60
+  _waveCounter: 0
+  _WaveEnemyMaxSpeed: 0
+  _WaveEnemyMinSpeed: 0
   _MAX_SPAWN_VALUE_COUNTER: 0
-  _timeScaler: 10
+  _timeScaler: 1
 --- !u!4 &484494552
 Transform:
   m_ObjectHideFlags: 0
