@@ -16,71 +16,97 @@ public class WaveController : MonoBehaviour
     [SerializeField] private Transform rightBottom;
     [SerializeField] private Transform leftBottom;
     [SerializeField] private TextMeshProUGUI _waveText;
-    private float _waveCooldown;
+    [SerializeField] private float _waveCooldown;
     private float _waveTimeValue;
     private float _nextTime;
     private int _waveCounter;
     private float _spawnRate;
     private float _WaveEnemyMaxSpeed;
     private float _WaveEnemyMinSpeed;
-    private bool allEnemysDeath;
     private bool oneTime;
     private int _MAX_SPAWN_VALUE;
     public int _MAX_SPAWN_VALUE_COUNTER;
+    private bool isEarlyFinished;
+    private bool isDeath;
+    public float _timeScaler;
     private void Start()
     {
         GameManager.Instance.StateChanged += ControlState;
         _spawnRate = 2f;  // Ne kadar azsa okadar fazla gelir
         _waveCounter = 1;
-        _waveCooldown = 60f;
+        IncreaseTimer();
         _WaveEnemyMinSpeed = 0.1f;
         _WaveEnemyMaxSpeed = 0.2f;
+        GameManager.Instance._newEnemyMaxSpeed = _WaveEnemyMaxSpeed;
+        GameManager.Instance._newEnemyMinSpeed = _WaveEnemyMinSpeed;
+        GameManager.Instance._player.GetComponent<PlayerScript>().OnTakeDamage += ResetAll;
         _MAX_SPAWN_VALUE = 10;
-        IncreaseTimer();
+        Time.timeScale *= _timeScaler;
     }
 
     private void Update()
     {
-        if(_MAX_SPAWN_VALUE_COUNTER >= _MAX_SPAWN_VALUE)
+        if (!isDeath)
         {
-            CancelInvoke(nameof(WaveSpawner));
-        }
-        if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play && !oneTime)
-        {
-            oneTime = true;
-            for (int i = 0; i < GameManager.Instance._UIController._allButtonsList.Count; i++)
+            if (_MAX_SPAWN_VALUE_COUNTER >= _MAX_SPAWN_VALUE)
             {
-                GameManager.Instance._UIController._allButtonsList[i].interactable = false;
-            }
-            Invoke(nameof(AllButtons), 2.2f);
-            _waveText.text = "WAVE " + _waveCounter;
-            _waveText.gameObject.GetComponent<RectTransform>().DOScale(2.7f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
-            {
-                _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.OutQuart);
-            });
-            _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(0f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
-            {
-                _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(130f, 1f).SetEase(Ease.OutQuart);
-            });
-        }
-        if(GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
-        {
-            _waveTimeValue += Time.time;
-            if(_waveTimeValue >= _nextTime && GameManager.Instance._EnemysList.Count == 0)
-            {
-                allEnemysDeath = true;
-            }
-            if(_waveTimeValue >= _nextTime && allEnemysDeath)
-            {
-                IncreaseTimer();
+                isEarlyFinished = true;
+                _MAX_SPAWN_VALUE_COUNTER = 0;
+                _MAX_SPAWN_VALUE += 15;
+                GameManager.Instance._EnemysList.Clear();
                 CancelInvoke(nameof(WaveSpawner));
-                ++_waveCounter;
+            }
+            
+            if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play && !oneTime)
+            {
+                oneTime = true;
+                for (int i = 0; i < GameManager.Instance._UIController._allButtonsList.Count; i++)
+                {
+                    GameManager.Instance._UIController._allButtonsList[i].interactable = false;
+                }
+                Invoke(nameof(AllButtons), 2.2f);
                 _waveText.text = "WAVE " + _waveCounter;
-                _WaveEnemyMinSpeed += 0.005f;
-                _WaveEnemyMaxSpeed += 0.008f;
-                _spawnRate -= 0.005f;
-                Invoke(nameof(WaveTrigger), 3f);
-                allEnemysDeath = false;
+                _waveText.gameObject.GetComponent<RectTransform>().DOScale(2.7f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                {
+                    _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.InOutQuad);
+                });
+                _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(-3f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                {
+                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(55f, 1f).SetEase(Ease.InOutQuad);
+                });
+            }
+            
+            if (GameManager.Instance.GetCurrentState() == GameStatesEnum.Play)
+            {
+                _waveTimeValue += Time.deltaTime;
+                if (isEarlyFinished)
+                {
+                    isEarlyFinished = false;
+                    IncreaseTimer();
+                    CancelInvoke(nameof(WaveSpawner));
+                    ++_waveCounter;
+                    _waveText.text = "WAVE " + _waveCounter;
+                    _WaveEnemyMinSpeed += 0.005f;
+                    _WaveEnemyMaxSpeed += 0.008f;
+                    GameManager.Instance._newEnemyMaxSpeed = _WaveEnemyMaxSpeed;
+                    GameManager.Instance._newEnemyMinSpeed = _WaveEnemyMinSpeed;
+                    _spawnRate -= 0.005f;
+                    Invoke(nameof(WaveTrigger), 3f);
+                    for (int i = 0; i < GameManager.Instance._UIController._allButtonsList.Count; i++)
+                    {
+                        GameManager.Instance._UIController._allButtonsList[i].interactable = false;
+                    }
+                    Invoke(nameof(AllButtons), 2.2f);
+                    _waveText.text = "WAVE " + _waveCounter;
+                    _waveText.gameObject.GetComponent<RectTransform>().DOScale(2.7f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                    {
+                        _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.OutQuart);
+                    });
+                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(0f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                    {
+                        _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(130f, 1f).SetEase(Ease.OutQuart);
+                    });
+                }
             }
         }
     }
@@ -144,7 +170,7 @@ public class WaveController : MonoBehaviour
     }
     private void WaveTrigger()
     {
-        InvokeRepeating(nameof(WaveSpawner), 0, _spawnRate);
+        InvokeRepeating(nameof(WaveSpawner), 0.1f, _spawnRate);
     }
     private void IncreaseTimer()
     {
@@ -152,6 +178,7 @@ public class WaveController : MonoBehaviour
     }
     private void ResetAll()
     {
+        isDeath = true;
         _WaveEnemyMinSpeed = 0.05f;
         _WaveEnemyMaxSpeed = 0.12f;
         _spawnRate = 2f;  // Ne kadar azsa okadar fazla gelir

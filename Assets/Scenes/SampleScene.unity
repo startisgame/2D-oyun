@@ -1939,7 +1939,7 @@ RectTransform:
   m_GameObject: {fileID: 450746366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1413602998}
@@ -2258,7 +2258,9 @@ MonoBehaviour:
   rightBottom: {fileID: 252393046}
   leftBottom: {fileID: 917901289}
   _waveText: {fileID: 450746368}
+  _waveCooldown: 60
   _MAX_SPAWN_VALUE_COUNTER: 0
+  _timeScaler: 10
 --- !u!4 &484494552
 Transform:
   m_ObjectHideFlags: 0
