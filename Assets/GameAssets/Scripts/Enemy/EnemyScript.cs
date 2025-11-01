@@ -14,7 +14,8 @@ public class EnemyScript : MonoBehaviour
         this._player = _instance._player;
         transform.right = _player.position;
         LookAtTarget((Vector2)_player.position);
-        _speed = UnityEngine.Random.Range(0.2f, 0.8f);
+        _speed = UnityEngine.Random.Range(GameManager.Instance._newEnemyMinSpeed, GameManager.Instance._newEnemyMaxSpeed);
+        ++GameManager.Instance._waveController._MAX_SPAWN_VALUE_COUNTER;
     }
     private void Update()
     {

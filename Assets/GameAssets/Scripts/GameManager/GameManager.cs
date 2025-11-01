@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public event Action StateChanged;
     public MusicHandler _musicHandler;
+    public WaveController _waveController;
     public float _soundValue;
     public int _AllDeathsCounter = 0;
+    public float _newEnemyMaxSpeed;
+    public float _newEnemyMinSpeed;
     public HealthCharge _healthUpSc;
     public List<GameObject> _EnemysList;
     public UIController _UIController;

@@ -6,5 +6,6 @@ public enum GameStatesEnum
     MainMenu,
     Settings,
     GameOver,
+    LevelUp,
     Stats
 }
