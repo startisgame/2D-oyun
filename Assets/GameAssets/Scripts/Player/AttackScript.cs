@@ -35,8 +35,10 @@ public class AttackScript : MonoBehaviour
     [SerializeField] private GameObject _killEffect_4;
     [SerializeField] private GameObject _killEffect_5;
     [SerializeField] private GameObject _currentKillEffect;
+    private BoxCollider2D _boxCollider;
     void Start()
     {
+        _boxCollider = GetComponent<BoxCollider2D>();
         slashSound.volume = GameManager.Instance._soundValue;
         GameManager.Instance._attackScript = this;
         _healthCharge = GameManager.Instance._healthUpSc;
@@ -46,38 +48,42 @@ public class AttackScript : MonoBehaviour
         switch (GameManager.Instance.gameObject.GetComponent<AttacStateController>().GetCurrentAttackState())
         {
             case AttackState.Slashes:
+                _boxCollider.size = new Vector2(1.72f, 1.72f);
                 var attackEffect_1 = Instantiate(_thousandSlashes);
                 attackEffect_1.transform.position = transform.position;
                 Destroy(attackEffect_1.gameObject, 2f);
                 _currentAudioClip = _attackSound_1;
                 break;
             case AttackState.ChargeEffect_1:
+                _boxCollider.size = new Vector2(3f, 1.72f);
                 var attackEffect_2 = Instantiate(_chargeAttack1);
                 attackEffect_2.transform.position = transform.position;
-                Destroy(attackEffect_2.gameObject, 2f);
+                Destroy(attackEffect_2.gameObject, 1.5f);
                 _currentAudioClip = _attackSound_2;
                 break;
             case AttackState.ChargeEffect_2:
+                _boxCollider.size = new Vector2(5f, 1.72f);
                 var attackEffect_3 = Instantiate(_chargeAttack2);
                 attackEffect_3.transform.position = transform.position;
-                Destroy(attackEffect_3.gameObject, 2f);
+                Destroy(attackEffect_3.gameObject, 1.2f);
                 _currentAudioClip = _attackSound_3;
                 break;
             case AttackState.ChargeEffect_3:
+                _boxCollider.size = new Vector2(4f, 1.72f);
                 var attackEffect_4 = Instantiate(_chargeAttack3);
                 attackEffect_4.transform.position = transform.position;
-                Destroy(attackEffect_4.gameObject, 2f);
+                Destroy(attackEffect_4.gameObject, 1.2f);
                 _currentAudioClip = _attackSound_4;
                 break;
             case AttackState.StoneSlashEffect:
+                _boxCollider.size = new Vector2(35f, 1.5f);
                 var attackEffect_5 = Instantiate(_stoneSlashAttack);
                 attackEffect_5.transform.position = transform.position;
-                Destroy(attackEffect_5.gameObject, 2f);
+                Destroy(attackEffect_5.gameObject, 1f);
                 _currentAudioClip = _attackSound_5;
                 break;
         }
         slashSound.PlayOneShot(_currentAudioClip);
-        Destroy(this.gameObject, 2f);
         Invoke(nameof(TurnOFFTrigger), 1f);
     }
     private void OnTriggerEnter2D(Collider2D other)

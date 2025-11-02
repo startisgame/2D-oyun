@@ -39,14 +39,12 @@ public class PlayerScript : MonoBehaviour
             Vector2 touchPos = _touchPos.ReadValue<Vector2>();
             Vector2 worldPos = cameraMain.ScreenToWorldPoint(touchPos);
             RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-            if (hit.transform == CompareTag("Player")) { return; }
-            else
-            {
-                var attack = Instantiate(prefab);
-                attack.transform.position = worldPos;
-                _currentTime = Time.time + cooldown;
-            }
-        }}
+            if(hit.collider != null && hit.collider == CompareTag("Player")){ return; }
+            var attack = Instantiate(prefab);
+            attack.transform.position = worldPos;
+            _currentTime = Time.time + cooldown;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

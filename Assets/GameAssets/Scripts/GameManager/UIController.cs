@@ -320,7 +320,7 @@ public class UIController : MonoBehaviour
             }
             else if (clickedBTN == AttackEffect_2_BTN)
             {
-                pointMinimum = 500;
+                pointMinimum = 10;
                 if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_2_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
@@ -344,7 +344,7 @@ public class UIController : MonoBehaviour
             }
             else if (clickedBTN == AttackEffect_3_BTN)
             {
-                pointMinimum = 30;
+                pointMinimum = 10;
                 if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_3_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
@@ -367,7 +367,7 @@ public class UIController : MonoBehaviour
             }
             else if (clickedBTN == AttackEffect_4_BTN)
             {
-                pointMinimum = 1500;
+                pointMinimum = 10;
                 if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_4_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
@@ -390,7 +390,7 @@ public class UIController : MonoBehaviour
             }
             else if (clickedBTN == AttackEffect_5_BTN)
             {
-                pointMinimum = 2000;
+                pointMinimum = 10;
                 if (GameManager.Instance._pointCounter >= pointMinimum && !_attackEffect_5_isBuyyed)
                 {
                     GameManager.Instance._pointCounter -= pointMinimum;
