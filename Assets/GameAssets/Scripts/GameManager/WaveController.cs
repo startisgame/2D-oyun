@@ -68,11 +68,11 @@ public class WaveController : MonoBehaviour
                 _waveText.text = "WAVE " + _waveCounter;
                 _waveText.gameObject.GetComponent<RectTransform>().DOScale(2.7f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
                 {
-                    _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.InOutQuad);
+                    _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.InSine);
                 });
-                _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(4f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(2f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
                 {
-                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(55f, 1f).SetEase(Ease.InOutQuad);
+                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(55f, 1f).SetEase(Ease.InSine);
                 });
             }
             
@@ -100,11 +100,11 @@ public class WaveController : MonoBehaviour
                     _waveText.text = "WAVE " + _waveCounter;
                     _waveText.gameObject.GetComponent<RectTransform>().DOScale(2.7f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
                     {
-                        _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.InOutQuad);
+                        _waveText.gameObject.GetComponent<RectTransform>().DOScale(0f, 1f).SetEase(Ease.InSine);
                     });
-                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(4f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
+                    _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(2f, 1.5f).SetEase(Ease.OutQuart).OnComplete(() =>
                     {
-                        _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(55f, 1f).SetEase(Ease.InOutQuad);
+                        _waveText.gameObject.GetComponent<RectTransform>().DOMoveY(55f, 1f).SetEase(Ease.InSine);
                     });
                 }
             }

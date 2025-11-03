@@ -38,6 +38,7 @@ public class AttackScript : MonoBehaviour
     private BoxCollider2D _boxCollider;
     void Start()
     {
+        Destroy(this.gameObject,2f);
         _boxCollider = GetComponent<BoxCollider2D>();
         slashSound.volume = GameManager.Instance._soundValue;
         GameManager.Instance._attackScript = this;

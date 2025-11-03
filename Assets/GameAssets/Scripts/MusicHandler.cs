@@ -96,7 +96,7 @@ public class MusicHandler : MonoBehaviour
     {
         _currentAudio = UnityEngine.Random.Range(0, _audioList.Count);
         _sourcee.clip = _audioList[_currentAudio];
-        _sourcee.DOFade(1f, 2f).SetEase(Ease.InSine);
+        _sourcee.DOFade(_musicBar.value, 2f).SetEase(Ease.InSine);
         _sourcee.Play();
     }
 

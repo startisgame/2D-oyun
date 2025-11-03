@@ -1,6 +1,8 @@
 using System;
 using TMPro.EditorUtilities;
+using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +17,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private float cooldown;
     [SerializeField] private float _currentTime;
+    [SerializeField] private LayerMask _playerMask;
 
     private void Start()
     {
@@ -39,9 +42,11 @@ public class PlayerScript : MonoBehaviour
             Vector2 touchPos = _touchPos.ReadValue<Vector2>();
             Vector2 worldPos = cameraMain.ScreenToWorldPoint(touchPos);
             RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-            if(hit.collider != null && hit.collider == CompareTag("Player")){ return; }
-            var attack = Instantiate(prefab);
-            attack.transform.position = worldPos;
+            if(hit.collider != null && hit.collider.gameObject.layer == _playerMask)
+            {
+                return; 
+            }
+            Instantiate(prefab,worldPos,Quaternion.identity);
             _currentTime = Time.time + cooldown;
         }
     }

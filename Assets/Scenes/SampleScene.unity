@@ -5168,7 +5168,7 @@ GameObject:
   - component: {fileID: 937937832}
   - component: {fileID: 937937830}
   - component: {fileID: 937937831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5193,6 +5193,9 @@ MonoBehaviour:
   prefab: {fileID: 6032911209144818146, guid: 4b6bc437a56b82041877ac268ccdf32d, type: 3}
   cooldown: 1.5
   _currentTime: 0
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!212 &937937828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11119,7 +11122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932733046}
   - component: {fileID: 1932733045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Player
   m_Icon: {fileID: 0}
